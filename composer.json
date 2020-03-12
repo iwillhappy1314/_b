@@ -1,0 +1,25 @@
+{
+  "name": "wenprise/_b",
+  "description": "Plugin developed by wenprise",
+  "require": {
+    "php": ">=5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Wenprise\\SpaceName\\": "src/"
+    }
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Amos Lee",
+      "email": "iwillhappy1314@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    }
+  }
+}

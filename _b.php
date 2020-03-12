@@ -1,0 +1,37 @@
+<?php
+/*
+Plugin Name:        _b
+Plugin URI:         http://www.wpzhiku.com/
+Description:        Display page`s subpage list and taxonomy terms list belongs to a post type
+Version:            1.0.0
+Author:             WordPress 智库
+Author URI:         http://www.wpzhiku.com/
+*/
+
+define('SPACENAME_VERSION', '1.0.0');
+define('SPACENAME_PATH', plugin_dir_path(__FILE__));
+define('SPACENAME_URL', plugin_dir_url(__FILE__));
+
+add_action('plugins_loaded', function ()
+{
+    require_once(SPACENAME_PATH . 'vendor/autoload.php');
+
+    load_plugin_textdomain('_b', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+
+    new \Wenprise\SpaceName\Init();
+
+    add_action('admin_init', function ()
+    {
+
+        global $pagenow;
+
+        // 判断是否为可变商品
+        if ($pagenow === 'post.php' && get_post_type($_GET[ 'post' ]) === 'product') {
+            wp_enqueue_style('_b-styles', SPACENAME_URL . 'assets/styles/main.css', [], SPACENAME_VERSION, 'screen');
+            wp_enqueue_script('_b-scripts', SPACENAME_URL . '/assets/scripts/main.js', ['jquery'], SPACENAME_VERSION, true);
+        }
+
+    });
+});
+
+
