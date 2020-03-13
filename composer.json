@@ -4,12 +4,16 @@
   "require": {
     "php": ">=5.6"
   },
+  "require-dev": {
+    "wenprise/debug": "^1.0",
+    "coenjacobs/mozart": "^0.5"
+  },
   "autoload": {
     "psr-4": {
       "Wenprise\\SpaceName\\": "src/"
     }
   },
-  "license": "MIT",
+  "license": "GPL",
   "authors": [
     {
       "name": "Amos Lee",
@@ -21,5 +25,28 @@
     "preferred-install": {
       "*": "dist"
     }
+  },
+  "extra": {
+    "mozart": {
+      "dep_namespace": "Wenprise\\SpaceName\\Vendor\\",
+      "dep_directory": "/src/Vendor/",
+      "classmap_directory": "src/Vendor/classes/",
+      "classmap_prefix": "RSC",
+      "packages": [
+        "gabordemooij/redbean",
+        "wenprise/wp-db-base",
+        "wenprise/wordpress-dispatcher"
+      ]
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "\"vendor/bin/mozart\" compose",
+      "composer dump-autoload"
+    ],
+    "post-update-cmd": [
+      "\"vendor/bin/mozart\" compose",
+      "composer dump-autoload"
+    ]
   }
 }
