@@ -2,6 +2,8 @@
 
 namespace Wenprise\SpaceName;
 
+use Wenprise\SpaceName\Admin\Pages\AddPage;
+
 class Init
 {
 
@@ -10,6 +12,14 @@ class Init
      */
     public function __construct()
     {
+
+        $classes = [
+            AddPage::class,
+        ];
+
+        foreach ($classes as $class) {
+            new $class;
+        }
 
     }
 
