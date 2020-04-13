@@ -1,3 +1,5 @@
 /assets/.sass-cache/
 /vendor/
 /.idea/
+/dist
+/node_modules
