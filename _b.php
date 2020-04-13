@@ -18,7 +18,6 @@ add_action('plugins_loaded', function ()
 
     load_plugin_textdomain('_b', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
-
     register_activation_hook(__FILE__, function ()
     {
         new Wenprise\SpaceName\Actions\ActivatorAction();
@@ -38,8 +37,10 @@ add_action('plugins_loaded', function ()
 
         // 判断是否为可变商品
         if ($pagenow === 'post.php' && get_post_type($_GET[ 'post' ]) === 'product') {
-            wp_enqueue_style('_b-styles', SPACENAME_URL . 'assets/styles/main.css', [], SPACENAME_VERSION, 'screen');
-            wp_enqueue_script('_b-scripts', SPACENAME_URL . '/assets/scripts/main.js', ['jquery'], SPACENAME_VERSION, true);
+            wp_enqueue_style('_b-styles', \Wenprise\SpaceName\Helpers::get_assets_url('app', 'frontend.css'), SPACENAME_VERSION, 'screen');
+
+            wp_enqueue_script('_b-runtime', Wenprise\SpaceName\Helpers::get_assets_url('app', 'runtime.js'), [], SPACENAME_VERSION, true);
+            wp_enqueue_script('_b-scripts', Wenprise\SpaceName\Helpers::get_assets_url('app', 'frontend.js'), ['_b-runtime'], SPACENAME_VERSION, true);
         }
 
     });
