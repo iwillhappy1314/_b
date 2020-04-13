@@ -3,6 +3,7 @@
 namespace Wenprise\SpaceName;
 
 use Wenprise\SpaceName\Admin\Pages\AddPage;
+use Wenprise\SpaceName\Databases\Member;
 
 class Init
 {
@@ -12,6 +13,14 @@ class Init
      */
     public function __construct()
     {
+
+        $databases = [
+            Member::class,
+        ];
+
+        foreach ($databases as $database) {
+            new $database;
+        }
 
         $classes = [
             AddPage::class,

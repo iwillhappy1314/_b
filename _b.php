@@ -15,6 +15,7 @@ define('SPACENAME_URL', plugin_dir_url(__FILE__));
 add_action('plugins_loaded', function ()
 {
     require_once(SPACENAME_PATH . 'vendor/autoload.php');
+    require_once(SPACENAME_PATH . 'src/routers.php');
 
     load_plugin_textdomain('_b', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 

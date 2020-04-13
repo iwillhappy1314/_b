@@ -3,7 +3,9 @@
   "description": "Plugin developed by wenprise",
   "require": {
     "php": ">=5.6",
-    "ext-json": "*"
+    "ext-json": "*",
+    "wenprise/wp-db-base": "^1.0",
+    "wenprise/wordpress-dispatcher": "^2.1"
   },
   "require-dev": {
     "wenprise/debug": "^1.0",
@@ -34,7 +36,6 @@
       "classmap_directory": "src/Vendor/classes/",
       "classmap_prefix": "RSC",
       "packages": [
-        "gabordemooij/redbean",
         "wenprise/wp-db-base",
         "wenprise/wordpress-dispatcher"
       ]
