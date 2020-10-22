@@ -2,5 +2,6 @@ assets/.sass-cache/
 vendor/
 build/
 .idea/
-dist
-node_modules
+dist/
+node_modules/
+composer.lock
