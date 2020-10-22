@@ -33,6 +33,12 @@
     }
   },
   "scripts": {
+    "pre-install-cmd": [
+      "mkdir -p build/vendor"
+    ],
+    "pre-update-cmd": [
+      "mkdir -p build/vendor"
+    ],
     "post-install-cmd": [
       "php-scoper add-prefix",
       "composer dump-autoload"
