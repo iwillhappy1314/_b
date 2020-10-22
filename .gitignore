@@ -1,5 +1,6 @@
-/assets/.sass-cache/
-/vendor/
-/.idea/
-/dist
-/node_modules
+assets/.sass-cache/
+vendor/
+build/
+.idea/
+dist
+node_modules
