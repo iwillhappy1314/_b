@@ -26,4 +26,17 @@ class Helpers
 
         return false;
     }
+
+    /**
+     * Get request var, if no value return default value.
+     *
+     * @param null $key
+     * @param null $default
+     *
+     * @return mixed|null
+     */
+    public static function http_get($key = null, $default = null)
+    {
+        return isset($_REQUEST[ $key ]) ? $_REQUEST[ $key ] : $default;
+    }
 }
