@@ -16,7 +16,7 @@
       "Wenprise\\SpaceName\\": "src/"
     },
     "classmap": [
-      "build/vendor/"
+      "build/"
     ]
   },
   "license": "GPL",
@@ -41,11 +41,15 @@
     ],
     "post-install-cmd": [
       "php-scoper add-prefix",
-      "composer dump-autoload"
+      "composer dump-autoload",
+      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
+      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\""
     ],
     "post-update-cmd": [
       "php-scoper add-prefix",
-      "composer dump-autoload"
+      "composer dump-autoload",
+      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
+      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\""
     ]
   }
 }
