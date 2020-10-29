@@ -51,7 +51,7 @@
     ],
     "post-update-cmd": [
       "php-scoper add-prefix",
-      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'SpaceNameVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
+      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'WenpriseSpaceNameVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
       "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseSpaceNameVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
       "grep \"@return \\\\\\Illuminate\" -rl build | xargs sed -i '' \"s/@return \\\\\\Illuminate/'@return \\\\\\WenpriseSpaceNameVendor\\\\\\Illuminate/g\"",
       "rm -rf vendor/*",
