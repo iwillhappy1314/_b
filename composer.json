@@ -34,22 +34,26 @@
   },
   "scripts": {
     "pre-install-cmd": [
+      "rm -rf build",
       "mkdir -p build"
     ],
     "pre-update-cmd": [
+      "rm -rf build",
       "mkdir -p build"
     ],
     "post-install-cmd": [
       "php-scoper add-prefix",
-      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
-      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
+      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'SpaceNameVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
+      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'SpaceNameVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
+      "grep \"@return \\\\\\Illuminate\" -rl build | xargs sed -i '' \"s/@return \\\\\\Illuminate/'@return \\\\\\WenpriseAffiliateVendor\\\\\\Illuminate/g\"",
       "rm -rf vendor/*",
       "composer dump-autoload"
     ],
     "post-update-cmd": [
       "php-scoper add-prefix",
-      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
-      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
+      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'SpaceNameVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
+      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'SpaceNameVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
+      "grep \"@return \\\\\\Illuminate\" -rl build | xargs sed -i '' \"s/@return \\\\\\Illuminate/'@return \\\\\\WenpriseAffiliateVendor\\\\\\Illuminate/g\"",
       "rm -rf vendor/*",
       "composer dump-autoload"
     ]
