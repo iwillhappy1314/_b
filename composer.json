@@ -34,22 +34,24 @@
   },
   "scripts": {
     "pre-install-cmd": [
-      "mkdir -p build/vendor"
+      "mkdir -p build"
     ],
     "pre-update-cmd": [
-      "mkdir -p build/vendor"
+      "mkdir -p build"
     ],
     "post-install-cmd": [
       "php-scoper add-prefix",
-      "composer dump-autoload",
       "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
-      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\""
+      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
+      "rm -rf vendor/*",
+      "composer dump-autoload"
     ],
     "post-update-cmd": [
       "php-scoper add-prefix",
-      "composer dump-autoload",
       "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
-      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\""
+      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseAffiliateVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
+      "rm -rf vendor/*",
+      "composer dump-autoload"
     ]
   }
 }
