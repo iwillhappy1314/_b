@@ -5,7 +5,7 @@
  * @package WenPrise
  */
 
-namespace Wenprise\SpaceName\Admin\Pages;
+namespace WenpriseSpaceName\Admin\Pages;
 
 class AddPage
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\SpaceName\Actions;
+namespace WenpriseSpaceName\Actions;
 
 class DeactivatorAction
 {

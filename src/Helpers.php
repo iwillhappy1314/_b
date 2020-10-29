@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\SpaceName;
+namespace WenpriseSpaceName;
 
 class Helpers
 {

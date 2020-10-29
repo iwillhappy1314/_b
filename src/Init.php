@@ -1,9 +1,9 @@
 <?php
 
-namespace Wenprise\SpaceName;
+namespace WenpriseSpaceName;
 
-use Wenprise\SpaceName\Admin\Pages\AddPage;
-use Wenprise\SpaceName\Databases\Member;
+use WenpriseSpaceName\Admin\Pages\AddPage;
+use WenpriseSpaceName\Databases\Member;
 
 class Init
 {

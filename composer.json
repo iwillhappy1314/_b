@@ -13,7 +13,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Wenprise\\SpaceName\\": "src/"
+      "WenpriseSpaceName\\": "src/"
     },
     "classmap": [
       "build/"
@@ -43,17 +43,17 @@
     ],
     "post-install-cmd": [
       "php-scoper add-prefix",
-      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'SpaceNameVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
-      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'SpaceNameVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
-      "grep \"@return \\\\\\Illuminate\" -rl build | xargs sed -i '' \"s/@return \\\\\\Illuminate/'@return \\\\\\WenpriseAffiliateVendor\\\\\\Illuminate/g\"",
+      "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'WenpriseSpaceNameVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
+      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseSpaceNameVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
+      "grep \"@return \\\\\\Illuminate\" -rl build | xargs sed -i '' \"s/@return \\\\\\Illuminate/'@return \\\\\\WenpriseSpaceNameVendor\\\\\\Illuminate/g\"",
       "rm -rf vendor/*",
       "composer dump-autoload"
     ],
     "post-update-cmd": [
       "php-scoper add-prefix",
       "grep \"'Nette\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Nette\\\\\\\\/'SpaceNameVendor\\\\\\\\\\\\\\Nette\\\\\\\\/g\"",
-      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'SpaceNameVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
-      "grep \"@return \\\\\\Illuminate\" -rl build | xargs sed -i '' \"s/@return \\\\\\Illuminate/'@return \\\\\\WenpriseAffiliateVendor\\\\\\Illuminate/g\"",
+      "grep \"'Wenprise\\\\\\\\\" -rl build | xargs sed -i '' \"s/'Wenprise\\\\\\\\/'WenpriseSpaceNameVendor\\\\\\\\\\\\\\Wenprise\\\\\\\\/g\"",
+      "grep \"@return \\\\\\Illuminate\" -rl build | xargs sed -i '' \"s/@return \\\\\\Illuminate/'@return \\\\\\WenpriseSpaceNameVendor\\\\\\Illuminate/g\"",
       "rm -rf vendor/*",
       "composer dump-autoload"
     ]

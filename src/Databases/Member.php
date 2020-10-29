@@ -1,8 +1,8 @@
 <?php
 
-namespace Wenprise\SpaceName\Databases;
+namespace WenpriseSpaceName\Databases;
 
-use Wenprise\SpaceName\Vendor\WPDBase\Database;
+use WenpriseSpaceNameVendor\WPDBase\Database;
 
 class Member extends Database
 {

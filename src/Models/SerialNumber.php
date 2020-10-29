@@ -1,60 +1,35 @@
 <?php
 
-namespace Wenprise\SpaceName\Models;
+namespace WenpriseSpaceName\Models;
 
-use Wenprise\SpaceName\Vendor\WPDBase\DB;
+
+use WenpriseSpaceNameVendor\Wenprise\ORM\Eloquent\Model;
 
 /**
  * 序列号
  *
  * Class SerialNumber
  */
-class SerialNumber extends DB
-{
-
-    public $table_name = 'wp_serial_numbers';
-    public $primary_key = 'id';
-
+class SerialNumber extends Model {
 
     /**
-     * Whitelist of columns
-     *
-     * @return  array
-     * @since   2.1
+     * @var string
      */
-    public function get_columns()
-    {
-        return [
-            'serial_number' => '%s',
-            'serial_pass'   => '%s',
-            'status'        => '%s',
-        ];
-    }
+    protected $table = 'serial_numbers';
 
     /**
-     * 默认列值
-     *
-     * @return  array
-     * @since   2.1
+     * @var string
      */
-    public function get_column_defaults()
-    {
-        return [
-            'status' => 'new',
-        ];
-    }
-
+    protected $primaryKey = 'id';
 
     /**
-     * 获取全部数据
-     *
-     * @return array|object|null
+     * @var bool
      */
-    public function getAll()
-    {
-        global $wpdb;
+    public $timestamps = false;
 
-        return $wpdb->get_results($wpdb->prepare("SELECT * FROM $this->table_name WHERE $this->primary_key > %d", 0), ARRAY_A);
-    }
+    /**
+     * @var array
+     */
+    protected $guarded = [ 'id' ];
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-use Wenprise\SpaceName\Vendor\Wenprise\Dispatcher\Router;
+use WenpriseSpaceName\Vendor\Wenprise\Dispatcher\Router;
 
 $routers = [
     '_b-serials' => ['\Wenprise\SpaceName\Controllers\SerialsController', 'index'],
