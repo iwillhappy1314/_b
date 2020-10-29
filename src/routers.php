@@ -1,9 +1,9 @@
 <?php
 
-use WenpriseSpaceName\Vendor\Wenprise\Dispatcher\Router;
+use WenpriseSpaceNameVendor\Wenprise\Dispatcher\Router;
 
 $routers = [
-    '_b-serials' => ['\Wenprise\SpaceName\Controllers\SerialsController', 'index'],
+    '_b' => ['\WenpriseSpaceName\Controllers\SerialsController', 'index'],
 ];
 
 // 社交响应
