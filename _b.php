@@ -12,23 +12,25 @@ define('SPACENAME_VERSION', '1.0.0');
 define('SPACENAME_PATH', plugin_dir_path(__FILE__));
 define('SPACENAME_URL', plugin_dir_url(__FILE__));
 
+require_once(SPACENAME_PATH . 'vendor/autoload.php');
+
+ register_activation_hook(__FILE__, function ()
+{
+    new WenpriseSpaceName\Actions\ActivatorAction();
+});
+
+
+register_deactivation_hook(__FILE__, function ()
+{
+    new WenpriseSpaceName\Actions\DeactivatorAction();
+});
+
 add_action('plugins_loaded', function ()
 {
-    require_once(SPACENAME_PATH . 'vendor/autoload.php');
+    
     require_once(SPACENAME_PATH . 'src/routers.php');
 
     load_plugin_textdomain('_b', false, dirname(plugin_basename(__FILE__)) . '/languages/');
-
-    register_activation_hook(__FILE__, function ()
-    {
-        new WenpriseSpaceName\Actions\ActivatorAction();
-    });
-
-
-    register_deactivation_hook(__FILE__, function ()
-    {
-        new WenpriseSpaceName\Actions\DeactivatorAction();
-    });
 
 
     add_action('admin_init', function ()
