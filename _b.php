@@ -25,6 +25,13 @@ register_deactivation_hook(__FILE__, function ()
     new WenpriseSpaceName\Actions\DeactivationAction();
 });
 
+
+register_uninstall_hook(__FILE__, function ()
+{
+    new WenpriseSpaceName\Actions\UninstallationAction();
+});
+
+
 add_action('plugins_loaded', function ()
 {
     
