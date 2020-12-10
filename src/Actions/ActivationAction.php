@@ -4,7 +4,7 @@ namespace WenpriseSpaceName\Actions;
 
 use WenpriseSpaceName\Databases\Member;
 
-class ActivatorAction
+class ActivationAction
 {
 
     public function __construct()

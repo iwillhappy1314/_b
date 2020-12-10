@@ -16,13 +16,13 @@ require_once(SPACENAME_PATH . 'vendor/autoload.php');
 
  register_activation_hook(__FILE__, function ()
 {
-    new WenpriseSpaceName\Actions\ActivatorAction();
+    new WenpriseSpaceName\Actions\ActivationAction();
 });
 
 
 register_deactivation_hook(__FILE__, function ()
 {
-    new WenpriseSpaceName\Actions\DeactivatorAction();
+    new WenpriseSpaceName\Actions\DeactivationAction();
 });
 
 add_action('plugins_loaded', function ()
