@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 php-scoper add-prefix
 
-prefix="WenpriseSerialManagerVendor"
+prefix="WenpriseSpaceNameVendor"
 namespaces=("Illuminate" "GuzzleHttp" "Omnipay" "Symfony")
 
 # 替换代码注释文档中的命名空间
