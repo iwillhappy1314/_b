@@ -10,7 +10,7 @@ use WenpriseSpaceNameVendor\Wenprise\ORM\Eloquent\Model;
  *
  * Class SerialNumber
  */
-class SerialNumber extends Model {
+class SerialNumberModel extends Model {
 
     /**
      * @var string
