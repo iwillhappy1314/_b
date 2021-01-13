@@ -1,43 +1,83 @@
 <template>
-    <section class="container">
+  <section class="container">
 
-    </section>
+    <h2>{{ title }}</h2>
+
+    <el-card class="box-card">
+      <div v-for="post in posts" :key="post.id">
+        <div class="content">
+          <p><strong>{{ post.title.rendered }}</strong></p>
+          <div class="excerpt" v-if="post.excerpt.rendered" v-html="post.excerpt.rendered"></div>
+        </div>
+      </div>
+    </el-card>
+
+  </section>
 
 </template>
 
 <script>
-    import {Drag, Drop} from 'vue-drag-drop';
+import {Drag, Drop} from 'vue-drag-drop';
 
-    export default {
-        name: 'Home',
+export default {
+  name: 'Home',
 
-        data() {
-            return {
-                msg  : 'Welcome to Your Vue.js Frontend App',
-                input: '',
-            };
-        },
+  data() {
+    return {
+      title  : 'This is a sample posts list',
+      loading: true,
+      posts  : [],
 
-        components: {
-            Drag,
-            Drop,
-        },
-        methods   : {
-            // 拖放图片后的操作
-            handleDrop(data) {
-                let image = new Image();
-                image.src = data.image;
-                this.dropElements.push(image);
-            },
-        },
+      pageNumber: 1,
+
+      // 分页
+      current: 1,
+      size   : 10,
+      total  : 0,
     };
+  },
+
+  components: {
+    Drag,
+    Drop,
+  },
+
+  methods: {
+    /**
+     * 分页
+     */
+    makePagination(headers) {
+      this.total = parseInt(headers['x-wp-total']);
+    },
+
+    getPosts() {
+      this.loading = true;
+      let self = this;
+      let endpoint = _bApiSettings.root + 'posts?_embed&page=' + pageNumber;
+
+      Vue.axios.get(endpoint).then(response => {
+        this.current = pageNumber;
+
+        response.data.forEach(function(post) {
+          self.posts.push(post);
+        });
+
+        this.loading = false;
+        this.makePagination(response.headers);
+      }).catch(e => {
+        this.errors.push(e);
+        this.loading = false;
+      });
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 
-    ._b{
-        display: block;
-    }
+._b {
+  display: block;
+}
 
 </style>
