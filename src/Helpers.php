@@ -21,7 +21,11 @@ class Helpers
         if (file_exists($filepath)) {
             $assets = json_decode(file_get_contents($filepath), true);
 
-            return esc_url(SPACENAME_URL . $directory . '/' . $assets[ $asset ]);
+            if(isset($assets[ $asset ])){
+                return esc_url(WP_TRANSSHIP_URL . $directory . '/' . $assets[ $asset ]);
+            }
+
+            return false;
         }
 
         return false;

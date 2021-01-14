@@ -16,13 +16,13 @@ class Frontend
     public function enqueue_scripts()
     {
         wp_enqueue_script('_b-runtime', Helpers::get_assets_url('app', 'runtime.js'), [], SPACENAME_VERSION, true);
-        wp_enqueue_style('_b-vendors-style', Helpers::get_assets_url('app', 'vendors~frontend'), [], SPACENAME_VERSION, 'screen');
-        wp_enqueue_script('_b-vendors-script', Helpers::get_assets_url('app', 'vendors~frontend.js'), [], SPACENAME_VERSION, true);
+        wp_enqueue_style('_b-vendors', Helpers::get_assets_url('app', 'vendors~frontend.css'), [], SPACENAME_VERSION, 'screen');
+        wp_enqueue_script('_b-vendors', Helpers::get_assets_url('app', 'vendors~frontend.js'), [], SPACENAME_VERSION, true);
 
-        wp_enqueue_style('_b-frontend-styles', Helpers::get_assets_url('app', 'frontend.css'), [], SPACENAME_VERSION, 'screen');
-        wp_enqueue_script('_b-frontend-scripts', Helpers::get_assets_url('app', 'frontend.js'), ['_b-runtime'], SPACENAME_VERSION, false);
+        wp_enqueue_style('_b-frontend', Helpers::get_assets_url('app', 'frontend.css'), [], SPACENAME_VERSION, 'screen');
+        wp_enqueue_script('_b-frontend', Helpers::get_assets_url('app', 'frontend.js'), ['_b-runtime'], SPACENAME_VERSION, false);
 
-        wp_localize_script('_b-frontend-scripts', '_bApiSettings', [
+        wp_localize_script('_b-frontend', '_bApiSettings', [
             'root'  => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
         ]);
@@ -34,14 +34,14 @@ class Frontend
         global $pagenow;
 
         wp_enqueue_script('_b-runtime', Helpers::get_assets_url('app', 'runtime.js'), [], SPACENAME_VERSION, true);
-        wp_enqueue_style('_b-vendors-style', Helpers::get_assets_url('app', 'vendors~admin~frontend'), [], SPACENAME_VERSION, 'screen');
-        wp_enqueue_script('_b-vendors-script', Helpers::get_assets_url('app', 'vendors~admin~frontend.js'), [], SPACENAME_VERSION, true);
+        wp_enqueue_style('_b-vendors', Helpers::get_assets_url('app', 'vendors~admin~frontend.css'), [], SPACENAME_VERSION, 'screen');
+        wp_enqueue_script('_b-vendors', Helpers::get_assets_url('app', 'vendors~admin~frontend.js'), [], SPACENAME_VERSION, true);
 
 
         // 判断是否为可变商品
         if ($pagenow === 'post.php' && get_post_type($_GET[ 'post' ]) === 'product') {
-            wp_enqueue_style('_b-admin-styles', Helpers::get_assets_url('app', 'admin.css'), [], SPACENAME_VERSION, 'screen');
-            wp_enqueue_script('_b-admin-scripts', Helpers::get_assets_url('app', 'scripts.js'), ['_b-runtime'], SPACENAME_VERSION, true);
+            wp_enqueue_style('_b-admin', Helpers::get_assets_url('app', 'admin.css'), [], SPACENAME_VERSION, 'screen');
+            wp_enqueue_script('_b-admin', Helpers::get_assets_url('app', 'scripts.js'), ['_b-runtime'], SPACENAME_VERSION, true);
         }
     }
 
