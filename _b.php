@@ -72,10 +72,12 @@ add_action('plugins_loaded', function ()
 
         wp_localize_script('_b-frontend-scripts', '_bApiSettings', [
             'root'  => esc_url_raw(rest_url()),
-            'nonce' => wp_create_nonce('_b_api_nonce'),
+            'nonce' => wp_create_nonce('wp_rest'),
         ]);
     });
 
+
+    add_action('rest_api_init', [new WenpriseSpaceName\Controllers\AddressApiController, 'register_routes']);
 
     new \WenpriseSpaceName\Init();
 });
