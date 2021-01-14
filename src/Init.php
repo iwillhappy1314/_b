@@ -3,6 +3,7 @@
 namespace WenpriseSpaceName;
 
 use WenpriseSpaceName\Admin\Pages\AddPage;
+use WenpriseSpaceName\Controllers\AddressApiController;
 
 
 class Init
@@ -15,12 +16,14 @@ class Init
     {
         $classes = [
             AddPage::class,
+            Frontend::class,
         ];
 
         foreach ($classes as $class) {
             new $class;
         }
 
+        add_action('rest_api_init', [new AddressApiController, 'register_routes']);
     }
 
 }
