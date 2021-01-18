@@ -35,8 +35,12 @@ class Frontend
 
         wp_enqueue_script('_b-runtime', Helpers::get_assets_url('app', 'runtime.js'), [], SPACENAME_VERSION, true);
         wp_enqueue_style('_b-vendors', Helpers::get_assets_url('app', 'vendors~admin~frontend.css'), [], SPACENAME_VERSION, 'screen');
-        wp_enqueue_script('_b-vendors', Helpers::get_assets_url('app', 'vendors~admin~frontend.js'), [], SPACENAME_VERSION, true);
+        wp_enqueue_script('_b-admin', Helpers::get_assets_url('app', 'vendors~admin~frontend.js'), [], SPACENAME_VERSION, true);
 
+        wp_localize_script('_b-admin', '_bAdminSettings', [
+            'root'  => esc_url_raw(rest_url()),
+            'nonce' => wp_create_nonce('wp_rest'),
+        ]);
 
         // 判断是否为可变商品
         if ($pagenow === 'post.php' && get_post_type($_GET[ 'post' ]) === 'product') {

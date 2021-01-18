@@ -20,8 +20,8 @@ class AddPage
     {
         add_submenu_page(
             'options-general.php',
-            __('Option Page', 'enter'),
-            __('Option', 'enter'),
+            __('Option Page', '_b'),
+            __('Option', '_b'),
             'manage_options',
             '_b',
             [$this, 'render_page']

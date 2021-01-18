@@ -1,18 +1,14 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
+
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import axiosConfig from './utils/axios-config';
+
 import './index.css';
 
-let axios_instance = axios.create({
-    transformRequest: [
-        function(data) {
-            return Qs.stringify(data);
-        }],
-    headers         : {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'X-WP-Nonce'  : _bApiSettings.nonce,
-    },
-});
+let axios_instance = axios.create(axiosConfig);
 
 Vue.use(VueAxios, axios_instance);
 

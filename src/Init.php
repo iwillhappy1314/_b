@@ -4,6 +4,7 @@ namespace WenpriseSpaceName;
 
 use WenpriseSpaceName\Admin\Pages\AddPage;
 use WenpriseSpaceName\Controllers\AddressApiController;
+use WenpriseSpaceName\Admin\Pages\AdminIndexPage;
 
 
 class Init
@@ -16,6 +17,7 @@ class Init
     {
         $classes = [
             AddPage::class,
+            AdminIndexPage::class,
             Frontend::class,
         ];
 

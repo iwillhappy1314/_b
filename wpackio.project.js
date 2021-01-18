@@ -27,7 +27,38 @@ module.exports = {
                 // code splitting automatically. When using ES6 modules, forget
                 // global namespace pollutions 😉
                 //admin: './src/admin/index.js', // Could be a string
-                frontend: ['./assets/main.js'], // Or an array of string (string[])
+                frontend: ['./assets/frontend/main.js'], // Or an array of string (string[])
+            },
+            webpackConfig: {
+                module : {
+                    rules: [
+                        {
+                            test  : /\.vue$/,
+                            loader: ['vue-loader'],
+                        },
+                        {
+                            test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                            use : ['svg-inline-loader'],
+                        },
+                    ],
+                },
+                plugins: [
+                    new VueLoaderPlugin(),
+                ],
+            },
+        },
+        {
+            name         : 'admin',
+            entry        : {
+                // mention each non-interdependent files as entry points
+                // The keys of the object will be used to generate filenames
+                // The values can be string or Array of strings (string|string[])
+                // But unlike webpack itself, it can not be anything else
+                // <https://webpack.js.org/concepts/#entry>
+                // You do not need to worry about file-size, because we would do
+                // code splitting automatically. When using ES6 modules, forget
+                // global namespace pollutions 😉
+                admin: './assets/admin/admin.js', // Could be a string
             },
             webpackConfig: {
                 module : {
