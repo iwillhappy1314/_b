@@ -8,9 +8,7 @@ import axiosConfig from './utils/axios-config';
 
 import './index.css';
 
-let axios_instance = axios.create(axiosConfig);
-
-Vue.use(VueAxios, axios_instance);
+Vue.use(VueAxios, axios.create(axiosConfig));
 
 Vue.config.productionTip = false;
 
