@@ -9,7 +9,7 @@ class Frontend
     public function __construct()
     {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
-        add_action('admin_init', [$this, 'enqueue_admin_scripts']);
+        add_action('admin_enqueue_scripts', [$this, 'admin_enqueue_scripts']);
     }
 
 
@@ -29,13 +29,13 @@ class Frontend
     }
 
 
-    public function enqueue_admin_scripts()
+    public function admin_enqueue_scripts()
     {
         global $pagenow;
 
-        wp_enqueue_script('_b-runtime', Helpers::get_assets_url('app', 'runtime.js'), [], SPACENAME_VERSION, true);
-        wp_enqueue_style('_b-vendors', Helpers::get_assets_url('app', 'vendors~admin~frontend.css'), [], SPACENAME_VERSION, 'screen');
-        wp_enqueue_script('_b-admin', Helpers::get_assets_url('app', 'vendors~admin~frontend.js'), [], SPACENAME_VERSION, true);
+        wp_enqueue_script('_b-runtime-admin', Helpers::get_assets_url('admin', 'runtime.js'), [], SPACENAME_VERSION, true);
+        wp_enqueue_style('_b-vendors-admin', Helpers::get_assets_url('admin', 'vendors~admin.css'), [], SPACENAME_VERSION, 'screen');
+        wp_enqueue_script('_b-admin', Helpers::get_assets_url('admin', 'vendors~admin.js'), [], SPACENAME_VERSION, true);
 
         wp_localize_script('_b-admin', '_bAdminSettings', [
             'root'  => esc_url_raw(rest_url()),
@@ -44,8 +44,8 @@ class Frontend
 
         // 判断是否为可变商品
         if ($pagenow === 'post.php' && get_post_type($_GET[ 'post' ]) === 'product') {
-            wp_enqueue_style('_b-admin', Helpers::get_assets_url('app', 'admin.css'), [], SPACENAME_VERSION, 'screen');
-            wp_enqueue_script('_b-admin', Helpers::get_assets_url('app', 'scripts.js'), ['_b-runtime'], SPACENAME_VERSION, true);
+            wp_enqueue_style('_b-admin', Helpers::get_assets_url('admin', 'admin.css'), [], SPACENAME_VERSION, 'screen');
+            wp_enqueue_script('_b-admin', Helpers::get_assets_url('admin', 'scripts.js'), ['_b-runtime'], SPACENAME_VERSION, true);
         }
     }
 

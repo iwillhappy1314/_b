@@ -22,7 +22,7 @@ class Helpers
             $assets = json_decode(file_get_contents($filepath), true);
 
             if(isset($assets[ $asset ])){
-                return esc_url(WP_TRANSSHIP_URL . $directory . '/' . $assets[ $asset ]);
+                return esc_url(SPACENAME_URL . $directory . '/' . $assets[ $asset ]);
             }
 
             return false;

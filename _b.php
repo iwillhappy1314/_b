@@ -26,17 +26,14 @@ register_deactivation_hook(__FILE__, function ()
 });
 
 
-register_uninstall_hook(__FILE__, '_b_install');
-
-function _b_install()
+register_uninstall_hook(__FILE__, function ()
 {
     new WenpriseSpaceName\Actions\UninstallationAction();
-}
+});
 
 
 add_action('plugins_loaded', function ()
 {
-
     require_once(SPACENAME_PATH . 'src/routers.php');
 
     load_plugin_textdomain('_b', false, dirname(plugin_basename(__FILE__)) . '/languages/');
