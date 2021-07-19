@@ -15,7 +15,7 @@ class Member extends Database
 
         return [
 
-        //     "CREATE TABLE IF NOT EXISTS `{$this->wpdb->prefix}serial_numbers` (
+        //     "CREATE TABLE `{$this->wpdb->prefix}serial_numbers` (
 		// 	`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 		// 	`user_id` bigint(20),
 		// 	`serial_number` text NOT NULL,

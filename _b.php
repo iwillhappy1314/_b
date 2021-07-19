@@ -12,24 +12,47 @@ define('SPACENAME_VERSION', '1.0.0');
 define('SPACENAME_PATH', plugin_dir_path(__FILE__));
 define('SPACENAME_URL', plugin_dir_url(__FILE__));
 
-require_once(SPACENAME_PATH . 'vendor/autoload.php');
+if ( ! is_file(SPACENAME_PATH . 'vendor/autoload.php')) {
+    spl_autoload_register(function ($class)
+    {
+        $prefix = 'WenpriseSpaceName';
 
-register_activation_hook(__FILE__, function ()
+        if (strpos($class, $prefix) === false) {
+            return;
+        }
+
+        $class    = substr($class, strlen($prefix));
+        $location = SPACENAME_PATH . 'src' . str_replace('\\', '/', $class) . '.php';
+
+        if (is_file($location)) {
+            require_once($location);
+        }
+    });
+} else {
+    require_once(SPACENAME_PATH . 'vendor/autoload.php');
+}
+
+
+register_activation_hook(__FILE__, '_s_activation');
+register_deactivation_hook(__FILE__, '_s_deactivation');
+register_deactivation_hook(__FILE__, '_s_uninstallation_action_action');
+
+function _s_activation()
 {
     new WenpriseSpaceName\Actions\ActivationAction();
-});
+}
 
 
-register_deactivation_hook(__FILE__, function ()
+function _s_deactivation()
 {
     new WenpriseSpaceName\Actions\DeactivationAction();
-});
+}
 
 
-register_uninstall_hook(__FILE__, function ()
+function _s_uninstallation_action_action()
 {
-    new WenpriseSpaceName\Actions\UninstallationAction();
-});
+    new WenpriseSpaceName\Actions\DeactivationAction();
+}
 
 
 add_action('plugins_loaded', function ()
