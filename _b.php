@@ -35,7 +35,7 @@ if ( ! is_file(SPACENAME_PATH . 'vendor/autoload.php')) {
 
 register_activation_hook(__FILE__, '_s_activation');
 register_deactivation_hook(__FILE__, '_s_deactivation');
-register_deactivation_hook(__FILE__, '_s_uninstallation_action_action');
+register_uninstall_hook(__FILE__, '_s_uninstallation_action_action');
 
 function _s_activation()
 {
