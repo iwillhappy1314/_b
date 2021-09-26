@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 php-scoper add-prefix
 
-prefix="WenpriseSpaceNameVendor"
+prefix="WenpriseSerialManagerVendor"
 namespaces=("Illuminate" "GuzzleHttp" "Omnipay" "Symfony")
 
 # 替换代码注释文档中的命名空间
@@ -16,6 +16,11 @@ grep "'Wenprise\\\\" -rl build | xargs sed -i '' "s/'Wenprise\\\\/'$prefix\\\\\\
 
 grep "|\\\Illuminate" -rl build | xargs sed -i '' "s/|\\\Illuminate/'|\\\\$prefix\\\Illuminate/g"
 grep "'\\\\\\\Omnipay" -rl build | xargs sed -i '' "s/'\\\\\\\Omnipay/'\\\\\\\\$prefix\\\\\\\Omnipay/g"
+
+sleep 3
+
+sed -i '' '2,3d' ./build/illuminate/support/helpers.php
+sed -i '' 's/WenpriseSerialManagerVendor\\\\//g' ./build/illuminate/support/helpers.php
 
 rm -rf vendor/*
 composer dump-autoload
