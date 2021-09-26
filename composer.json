@@ -4,6 +4,7 @@
   "require": {
     "php": ">=5.6",
     "ext-json": "*",
+    "symfony/translation": "^3.0",
     "wenprise/wp-db-base": "^1.0",
     "wenprise/wordpress-dispatcher": "^2.1",
     "wenprise/eloquent": "^0.1.2"
