@@ -16,6 +16,7 @@ grep "'Wenprise\\\\" -rl build | xargs sed -i '' "s/'Wenprise\\\\/'$prefix\\\\\\
 
 grep "|\\\Illuminate" -rl build | xargs sed -i '' "s/|\\\Illuminate/'|\\\\$prefix\\\Illuminate/g"
 grep "'\\\\\\\Omnipay" -rl build | xargs sed -i '' "s/'\\\\\\\Omnipay/'\\\\\\\\$prefix\\\\\\\Omnipay/g"
+grep "'\\\\\\\Carbon_Fields" -rl build | xargs sed -i '' "s/'\\\\\\\Carbon_Fields/'\\\\\\\\$prefix\\\\\\\Carbon_Fields/g"
 
 sleep 3
 
