@@ -17,7 +17,7 @@ class AddressApiController extends \WP_REST_Controller
             [
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => [$this, 'get_items'],
-                // 'permission_callback' => [$this, 'get_items_permissions_check'],
+                'permission_callback' => [$this, 'get_items_permissions_check'],
                 'args'                => [
 
                 ],
@@ -69,7 +69,7 @@ class AddressApiController extends \WP_REST_Controller
      *
      * @param \WP_REST_Request $request Full data about the request.
      *
-     * @return \WP_Error|\WP_REST_Response
+     * @return \WP_REST_Response
      */
     public function get_items($request)
     {
@@ -198,7 +198,7 @@ class AddressApiController extends \WP_REST_Controller
      *
      * @param \WP_REST_Request $request Full data about the request.
      *
-     * @return \WP_Error|bool
+     * @return bool
      */
     public function create_item_permissions_check($request)
     {
@@ -210,7 +210,7 @@ class AddressApiController extends \WP_REST_Controller
      *
      * @param \WP_REST_Request $request Full data about the request.
      *
-     * @return \WP_Error|bool
+     * @return bool
      */
     public function update_item_permissions_check($request)
     {
@@ -222,7 +222,7 @@ class AddressApiController extends \WP_REST_Controller
      *
      * @param \WP_REST_Request $request Full data about the request.
      *
-     * @return \WP_Error|bool
+     * @return bool
      */
     public function delete_item_permissions_check($request)
     {
@@ -234,7 +234,7 @@ class AddressApiController extends \WP_REST_Controller
      *
      * @param \WP_REST_Request $request Request object
      *
-     * @return \WP_Error|object $prepared_item
+     * @return array $prepared_item
      */
     protected function prepare_item_for_database($request)
     {
@@ -244,19 +244,19 @@ class AddressApiController extends \WP_REST_Controller
     /**
      * Prepare the item for the REST response
      *
-     * @param mixed           $item    WordPress representation of the item.
+     * @param mixed            $item    WordPress representation of the item.
      * @param \WP_REST_Request $request Request object.
      *
      * @return mixed
      */
     public function prepare_item_for_response($item, $request)
     {
-        return array(
+        return [
             'description'       => 'Current page of the collection.',
             'type'              => 'integer',
             'default'           => 1,
             'sanitize_callback' => 'absint',
-        );
+        ];
     }
 
     /**
@@ -266,24 +266,24 @@ class AddressApiController extends \WP_REST_Controller
      */
     public function get_collection_params()
     {
-        return array(
-            'page'     => array(
+        return [
+            'page'     => [
                 'description'       => 'Current page of the collection.',
                 'type'              => 'integer',
                 'default'           => 1,
                 'sanitize_callback' => 'absint',
-            ),
-            'per_page' => array(
+            ],
+            'per_page' => [
                 'description'       => 'Maximum number of items to be returned in result set.',
                 'type'              => 'integer',
                 'default'           => 10,
                 'sanitize_callback' => 'absint',
-            ),
-            'search'   => array(
+            ],
+            'search'   => [
                 'description'       => 'Limit results to those matching a string.',
                 'type'              => 'string',
                 'sanitize_callback' => 'sanitize_text_field',
-            ),
-        );
+            ],
+        ];
     }
 }
