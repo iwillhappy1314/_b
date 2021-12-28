@@ -8,7 +8,8 @@ Author:             WordPress 智库
 Author URI:         http://www.wpzhiku.com/
 */
 
-define('SPACENAME_VERSION', '1.0.0');
+const SPACENAME_VERSION = '1.0.0';
+const SPACENAME_MAIN_FILE = __FILE__;
 define('SPACENAME_PATH', plugin_dir_path(__FILE__));
 define('SPACENAME_URL', plugin_dir_url(__FILE__));
 
@@ -33,9 +34,9 @@ if ( ! is_file(SPACENAME_PATH . 'vendor/autoload.php')) {
 }
 
 
-register_activation_hook(__FILE__, '_s_activation');
-register_deactivation_hook(__FILE__, '_s_deactivation');
-register_uninstall_hook(__FILE__, '_s_uninstallation_action_action');
+register_activation_hook(SPACENAME_MAIN_FILE, '_s_activation');
+register_deactivation_hook(SPACENAME_MAIN_FILE, '_s_deactivation');
+register_uninstall_hook(SPACENAME_MAIN_FILE, '_s_uninstallation_action_action');
 
 function _s_activation()
 {
