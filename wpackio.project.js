@@ -2,11 +2,11 @@ const pkg = require('./package.json');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
-    appName            : 'wenpriseSpaceName',
+    appName            : 'WenpriseSpaceName',
     type               : 'plugin',
     slug               : '_b',
     bannerConfig       : {
-        name         : 'wenpriseSpaceName',
+        name         : 'WenpriseSpaceName',
         author       : '',
         license      : 'UNLICENSED',
         link         : 'UNLICENSED',
@@ -16,7 +16,7 @@ module.exports = {
     },
     files              : [
         {
-            name         : 'app',
+            name         : 'frontend',
             entry        : {
                 // mention each non-interdependent files as entry points
                 // The keys of the object will be used to generate filenames
@@ -27,7 +27,7 @@ module.exports = {
                 // code splitting automatically. When using ES6 modules, forget
                 // global namespace pollutions 😉
                 //admin: './src/admin/index.js', // Could be a string
-                frontend: ['./assets/frontend/main.js'], // Or an array of string (string[])
+                main: ['./source/frontend/main.js'], // Or an array of string (string[])
             },
             webpackConfig: {
                 module : {
@@ -58,7 +58,7 @@ module.exports = {
                 // You do not need to worry about file-size, because we would do
                 // code splitting automatically. When using ES6 modules, forget
                 // global namespace pollutions 😉
-                admin: './assets/admin/admin.js', // Could be a string
+                main: './source/admin/main.js', // Could be a string
             },
             webpackConfig: {
                 module : {
