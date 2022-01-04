@@ -1,16 +1,18 @@
 {
-  "name": "wenprise/_b",
+  "name": "wenprise/bb",
   "description": "Plugin developed by wenprise",
   "require": {
-    "php": ">=5.6",
+    "php": ">=7.1",
     "ext-json": "*",
-    "symfony/translation": "^3.0",
-    "wenprise/wp-db-base": "^1.0",
+    "symfony/translation": "^4.4",
+    "wenprise/wp-db-base": "^1.2",
     "wenprise/wordpress-dispatcher": "^2.1",
-    "wenprise/eloquent": "^0.1.2"
+    "wenprise/eloquent": "^0.1.2",
+    "wpackio/enqueue": "^3.4"
   },
   "require-dev": {
-    "wenprise/debug": "^1.0"
+    "wenprise/debug": "^1.0",
+    "brianhenryie/strauss": "^0.5.0"
   },
   "autoload": {
     "psr-4": {
@@ -34,19 +36,40 @@
     }
   },
   "scripts": {
-    "pre-install-cmd": [
-      "rm -rf build",
-      "mkdir -p build"
-    ],
-    "pre-update-cmd": [
-      "rm -rf build",
-      "mkdir -p build"
-    ],
-    "post-install-cmd": [
-      "chmod +x ./bin/patcher.sh && ./bin/patcher.sh"
-    ],
-    "post-update-cmd": [
-      "chmod +x ./bin/patcher.sh && ./bin/patcher.sh"
+    "strauss": [
+      "@php strauss.phar"
     ]
+  },
+  "extra": {
+    "strauss": {
+      "target_directory": "build",
+      "namespace_prefix": "WenpriseSpaceName\\",
+      "classmap_prefix": "WenpriseSpaceName_",
+      "constant_prefix": "WenpriseSpaceName_",
+      "packages": [
+      ],
+      "override_autoload": {
+      },
+      "exclude_from_copy": {
+        "packages": [
+        ],
+        "namespaces": [
+        ],
+        "file_patterns": [
+        ]
+      },
+      "exclude_from_prefix": {
+        "packages": [
+        ],
+        "namespaces": [
+        ],
+        "file_patterns": [
+          "/^psr.*$/"
+        ]
+      },
+      "namespace_replacement_patterns": {
+      },
+      "delete_vendor_files": false
+    }
   }
 }

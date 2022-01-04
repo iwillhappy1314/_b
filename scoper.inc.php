@@ -23,19 +23,28 @@ return [
               ->in('vendor'),
     ],
 
-    'files-whitelist' => [],
-
     'patchers' => [
         function (string $filePath, string $prefix, string $contents): string
         {
-            // Change the contents here.
+            if ($filePath === '/path/to/offending/file') {
+                return preg_replace(
+                    "%\$class = 'Humbug\\\\Format\\\\Type\\\\' . \$type;%",
+                    '$class = \'' . $prefix . '\\\\Humbug\\\\Format\\\\Type\\\\\' . $type;',
+                    $content
+                );
+            }
 
             return $contents;
         },
     ],
 
+    'files-whitelist' => [
+
+    ],
+
     'whitelist' => [
         'Composer\*',
+        'WPackio\*',
     ],
 
     'whitelist-global-constants' => true,

@@ -13,7 +13,7 @@ const axiosConfig = {
         }],
     headers         : {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'X-WP-Nonce'  : _bApiSettings.nonce,
+        'X-WP-Nonce'  : wenpriseSpaceNameSettings.nonce,
     },
 };
 
