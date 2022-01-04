@@ -52,14 +52,13 @@ export default {
 
     getPosts() {
       this.loading = true;
-      let self = this;
       let endpoint = wenpriseSpaceNameSettings.root + 'posts?_embed&page=' + pageNumber;
 
       Vue.axios.get(endpoint).then(response => {
         this.current = pageNumber;
 
-        response.data.forEach(function(post) {
-          self.posts.push(post);
+        response.data.forEach((post) => {
+          this.posts.push(post);
         });
 
         this.loading = false;
@@ -73,7 +72,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 
 ._b {
