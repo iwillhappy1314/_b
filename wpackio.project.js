@@ -103,6 +103,7 @@ module.exports = {
     // @link <https://github.com/isaacs/minimatch#usage>
     packageFiles       : [
         'inc/**',
+        'src/**',
         'vendor/**',
         'dist/**',
         '*.php',

@@ -8,6 +8,8 @@ Author:             WordPress 智库
 Author URI:         http://www.wpzhiku.com/
 */
 
+defined('WPINC') || die;
+
 const SPACENAME_VERSION = '1.0.0';
 const SPACENAME_MAIN_FILE = __FILE__;
 define('SPACENAME_PATH', plugin_dir_path(__FILE__));
