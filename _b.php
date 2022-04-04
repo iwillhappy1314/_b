@@ -36,23 +36,23 @@ if ( ! is_file(SPACENAME_PATH . 'vendor/autoload.php')) {
 }
 
 
-register_activation_hook(SPACENAME_MAIN_FILE, '_s_activation');
-register_deactivation_hook(SPACENAME_MAIN_FILE, '_s_deactivation');
-register_uninstall_hook(SPACENAME_MAIN_FILE, '_s_uninstallation_action_action');
+register_activation_hook(SPACENAME_MAIN_FILE, '_b_activation');
+register_deactivation_hook(SPACENAME_MAIN_FILE, '_b_deactivation');
+register_uninstall_hook(SPACENAME_MAIN_FILE, '_b_uninstallation_action_action');
 
-function _s_activation()
+function _b_activation()
 {
     new WenpriseSpaceName\Actions\ActivationAction();
 }
 
 
-function _s_deactivation()
+function _b_deactivation()
 {
     new WenpriseSpaceName\Actions\DeactivationAction();
 }
 
 
-function _s_uninstallation_action_action()
+function _b_uninstallation_action_action()
 {
     new WenpriseSpaceName\Actions\DeactivationAction();
 }
