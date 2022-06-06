@@ -9,7 +9,7 @@ class ActivationAction
 
     public function __construct()
     {
-        $this->init_db();
+        // $this->init_db();
     }
 
 
