@@ -17,10 +17,7 @@
   "autoload": {
     "psr-4": {
       "WenpriseSpaceName\\": "src/"
-    },
-    "classmap": [
-      "build/"
-    ]
+    }
   },
   "license": "GPL",
   "authors": [
@@ -39,37 +36,5 @@
     "strauss": [
       "@php strauss.phar"
     ]
-  },
-  "extra": {
-    "strauss": {
-      "target_directory": "build",
-      "namespace_prefix": "WenpriseSpaceName\\",
-      "classmap_prefix": "WenpriseSpaceName_",
-      "constant_prefix": "WenpriseSpaceName_",
-      "packages": [
-      ],
-      "override_autoload": {
-      },
-      "exclude_from_copy": {
-        "packages": [
-        ],
-        "namespaces": [
-        ],
-        "file_patterns": [
-        ]
-      },
-      "exclude_from_prefix": {
-        "packages": [
-        ],
-        "namespaces": [
-        ],
-        "file_patterns": [
-          "/^psr.*$/"
-        ]
-      },
-      "namespace_replacement_patterns": {
-      },
-      "delete_vendor_files": false
-    }
   }
 }

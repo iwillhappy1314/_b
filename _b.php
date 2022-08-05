@@ -60,7 +60,7 @@ function _b_uninstallation_action_action()
 
 add_action('plugins_loaded', function ()
 {
-    require_once(SPACENAME_PATH . 'src/routers.php');
+    // require_once(SPACENAME_PATH . 'src/routers.php');
 
     load_plugin_textdomain('_b', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
