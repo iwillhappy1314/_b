@@ -21,9 +21,10 @@ class Frontend
 
         $entry_point = array_pop( $assets['js'] )['handle'];
 
-        wp_localize_script($entry_point, 'WenpriseSpaceNameRealifeApiSettings', [
+        wp_localize_script($entry_point, 'WenpriseSpaceNameApiSettings', [
             'root'  => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
+            'ajax_url' => admin_url('admin-ajax.php'),
         ]);
     }
 

@@ -12,7 +12,7 @@ module.exports = {
         link         : 'UNLICENSED',
         version      : pkg.version,
         copyrightText: 'This software is released under the UNLICENSED License\nhttps://opensource.org/licenses/UNLICENSED',
-        credit       : true,
+        credit       : false,
     },
     files              : [
         {
