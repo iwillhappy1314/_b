@@ -6,13 +6,13 @@ class QueryShortcode
 {
     public function __construct()
     {
-        add_shortcode('_b_serial_validator', [$this, 'render']);
+        add_shortcode('_b_app', [$this, 'render']);
     }
 
 
     public function render()
     {
-        $template = SPACENAME_PATH . 'resources/templates/validator.php';
+        $template = SPACENAME_PATH . 'templates/app.php';
 
         include $template;
     }
