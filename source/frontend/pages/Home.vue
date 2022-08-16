@@ -52,7 +52,7 @@ export default {
 
     getPosts() {
       this.loading = true;
-      let endpoint = wenpriseSpaceNameSettings.root + 'posts?_embed&page=' + pageNumber;
+      let endpoint = wenpriseSpaceNameFrontendSettings.root + 'posts?_embed&page=' + pageNumber;
 
       Vue.axios.get(endpoint).then(response => {
         this.current = pageNumber;

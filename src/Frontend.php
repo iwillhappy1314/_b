@@ -21,7 +21,7 @@ class Frontend
 
         $entry_point = array_pop( $assets['js'] )['handle'];
 
-        wp_localize_script($entry_point, 'WenpriseSpaceNameApiSettings', [
+        wp_localize_script($entry_point, 'wenpriseSpaceNameFrontendSettings', [
             'root'  => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
             'ajax_url' => admin_url('admin-ajax.php'),
@@ -38,7 +38,7 @@ class Frontend
 
         $entry_point = array_pop( $assets['js'] )['handle'];
 
-        wp_localize_script($entry_point, 'wenpriseSpaceNameSettings', [
+        wp_localize_script($entry_point, 'wenpriseSpaceNameAdminSettings', [
             'root'  => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
         ]);

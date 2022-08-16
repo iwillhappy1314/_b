@@ -22,10 +22,10 @@ export default {
           }],
         headers         : {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'X-WP-Nonce'  : _bAdminSettings.nonce,
+          'X-WP-Nonce'  : wenpriseSpaceNameAdminSettings.nonce,
         },
       },
-      url        : _bAdminSettings.root + 'wp-transship/v1/addresses',
+      url        : wenpriseSpaceNameAdminSettings.root + 'wp-transship/v1/addresses',
       columns    : [
         {
           prop : 'name',
