@@ -6,7 +6,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import axiosConfig from './utils/axios-config';
 
-import './index.css';
+import './index.scss';
 
 Vue.use(VueAxios, axios.create(axiosConfig));
 
