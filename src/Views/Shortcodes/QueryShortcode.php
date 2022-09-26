@@ -12,8 +12,11 @@ class QueryShortcode
 
     public function render()
     {
+        ob_start();
         $template = SPACENAME_PATH . 'templates/app.php';
 
         include $template;
+        
+        return ob_get_clean();
     }
 }
