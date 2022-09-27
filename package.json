@@ -7,7 +7,7 @@
     "build": "wpackio-scripts build",
     "dev": "wpackio-scripts start",
     "archive": "wpackio-scripts pack",
-    "pot": "wp-pot --src 'src/*.php' --src 'templates/*.php' --dest-file 'languages/_b.pot'"
+    "pot": "wp-pot --src 'src/**/*.php' --src 'templates/**/*.php' --dest-file 'languages/_b.pot'"
   },
   "dependencies": {
     "@femessage/el-data-table": "^1.23.0",
