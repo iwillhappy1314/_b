@@ -16,16 +16,22 @@ class Frontend
     public function enqueue_scripts()
     {
 
-        $enqueue = new \WPackio\Enqueue( '_b', 'dist', '1.0.0', 'plugin', SPACENAME_MAIN_FILE );
-        $assets = $enqueue->enqueue( 'frontend', 'main', [] );
+        $enqueue = new \WPackio\Enqueue('_b', 'dist', '1.0.0', 'plugin', SPACENAME_MAIN_FILE);
 
-        $entry_point = array_pop( $assets['js'] )['handle'];
+        try {
+            $assets = $enqueue->enqueue('frontend', 'main', []);
 
-        wp_localize_script($entry_point, 'wenpriseSpaceNameFrontendSettings', [
-            'root'  => esc_url_raw(rest_url()),
-            'nonce' => wp_create_nonce('wp_rest'),
-            'ajax_url' => admin_url('admin-ajax.php'),
-        ]);
+            $entry_point = array_pop($assets[ 'js' ])[ 'handle' ];
+
+            wp_localize_script($entry_point, 'wenpriseSpaceNameFrontendSettings', [
+                'root'     => esc_url_raw(rest_url()),
+                'nonce'    => wp_create_nonce('wp_rest'),
+                'ajax_url' => admin_url('admin-ajax.php'),
+            ]);
+        } catch (\Exception $e) {
+            error_log(var_export($e->getMessage(), true));
+        }
+
     }
 
 
@@ -33,20 +39,25 @@ class Frontend
     {
         global $pagenow;
 
-        $enqueue = new \WPackio\Enqueue( '_b', 'dist', '1.0.0', 'plugin', SPACENAME_MAIN_FILE );
-        $assets = $enqueue->enqueue( 'admin', 'main', [] );
+        $enqueue = new \WPackio\Enqueue('_b', 'dist', '1.0.0', 'plugin', SPACENAME_MAIN_FILE);
 
-        $entry_point = array_pop( $assets['js'] )['handle'];
+        try {
+            $assets = $enqueue->enqueue('admin', 'main', []);
 
-        wp_localize_script($entry_point, 'wenpriseSpaceNameAdminSettings', [
-            'root'  => esc_url_raw(rest_url()),
-            'nonce' => wp_create_nonce('wp_rest'),
-        ]);
+            $entry_point = array_pop($assets[ 'js' ])[ 'handle' ];
 
-        // 判断是否为可变商品
-        if ($pagenow === 'post.php' && get_post_type($_GET[ 'post' ]) === 'product') {
-            wp_enqueue_style('_b-admin', Helpers::get_assets_url('admin', 'admin.css'), [], SPACENAME_VERSION, 'screen');
-            wp_enqueue_script('_b-admin', Helpers::get_assets_url('admin', 'scripts.js'), ['_b-runtime'], SPACENAME_VERSION, true);
+            wp_localize_script($entry_point, 'wenpriseSpaceNameAdminSettings', [
+                'root'  => esc_url_raw(rest_url()),
+                'nonce' => wp_create_nonce('wp_rest'),
+            ]);
+
+            // 判断是否为可变商品
+            if ($pagenow === 'post.php' && get_post_type($_GET[ 'post' ]) === 'product') {
+                wp_enqueue_style('_b-admin', Helpers::get_assets_url('admin', 'admin.css'), [], SPACENAME_VERSION, 'screen');
+                wp_enqueue_script('_b-admin', Helpers::get_assets_url('admin', 'scripts.js'), ['_b-runtime'], SPACENAME_VERSION, true);
+            }
+        } catch (\Exception $e) {
+            error_log(var_export($e->getMessage(), true));
         }
     }
 }
