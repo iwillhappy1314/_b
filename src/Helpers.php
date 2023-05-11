@@ -8,27 +8,35 @@ class Helpers
     /**
      * 获取资源 URL
      *
-     * @param string $name      资源组名称
-     * @param string $asset     静态资源名称
-     * @param string $directory 相对插件根目录的 Url
+     * @param string $path 资源组名称
      *
      * @return string
      */
-    public static function get_assets_url($name, $asset, $directory = 'dist')
+    public static function get_assets_url($path, string $manifest_directory = SPACENAME_PATH)
     {
-        $filepath = realpath(SPACENAME_PATH . $directory . '/' . $name . '/manifest.json');
+        static $manifest;
+        static $manifest_path;
 
-        if (file_exists($filepath)) {
-            $assets = json_decode(file_get_contents($filepath), true);
-
-            if(isset($assets[ $asset ])){
-                return esc_url(SPACENAME_URL . $directory . '/' . $assets[ $asset ]);
-            }
-
-            return false;
+        if ( ! $manifest_path) {
+            $manifest_path = $manifest_directory . 'mix-manifest.json';
         }
 
-        return false;
+        if ( ! $manifest) {
+            // @codingStandardsIgnoreLine
+            $manifest = json_decode(file_get_contents($manifest_path), true);
+        }
+
+        // Remove manifest directory from path
+        $path = str_replace($manifest_directory, '', $path);
+        // Make sure there’s a leading slash
+        $path = '/' . ltrim($path, '/');
+        
+        // Get file URL from manifest file
+        $path = $manifest[ $path ];
+        // Make sure there’s no leading slash
+        $path = ltrim($path, '/');
+
+        return SPACENAME_URL . $path;
     }
 
 
