@@ -2,7 +2,6 @@
 
 namespace WenpriseSpaceName;
 
-
 use Carbon_Fields\Carbon_Fields;
 use Carbon_Fields\Container;
 use Carbon_Fields\Field;

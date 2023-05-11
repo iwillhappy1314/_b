@@ -7,8 +7,7 @@
     "symfony/translation": "^4.4",
     "wenprise/wp-db-base": "^1.2",
     "wenprise/wordpress-dispatcher": "^2.1",
-    "wenprise/eloquent": "^0.1.2",
-    "wpackio/enqueue": "^3.4"
+    "wenprise/eloquent": "^0.1.2"
   },
   "require-dev": {
     "wenprise/debug": "^1.0",
