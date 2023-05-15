@@ -20,7 +20,7 @@ mix.webpackConfig({
         })],
 });
 
-mix.sass('frontend/assets/styles/index.scss', 'dist/styles').
+mix.sass('assets/styles/index.scss', 'dist/styles').
     tailwind().
     options({
         outputStyle: 'compressed',
@@ -29,7 +29,7 @@ mix.sass('frontend/assets/styles/index.scss', 'dist/styles').
         ],
     });
 
-mix.js('frontend/assets/scripts/main.js', 'dist/scripts');
+mix.js('assets/scripts/main.js', 'dist/scripts');
 
 //mix.copyWatched('assets/images', 'dist/images').
 //    copyWatched('assets/fonts', 'dist/fonts');
