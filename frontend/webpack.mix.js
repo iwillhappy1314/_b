@@ -38,7 +38,7 @@ if (mix.inProduction()) {
     mix.versionHash();
 } else {
     mix.sourceMaps();
-    mix.webpackConfig({devtool: 'frontend-map'});
+    mix.webpackConfig({devtool: 'eval-cheap-source-map'});
 }
 
 mix.browserSync({

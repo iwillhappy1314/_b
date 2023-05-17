@@ -18,7 +18,7 @@ class Helpers
         static $manifest_path;
 
         if ( ! $manifest_path) {
-            $manifest_path = $manifest_directory . 'mix-manifest.json';
+            $manifest_path = $manifest_directory . 'frontend/mix-manifest.json';
         }
 
         if ( ! $manifest) {
@@ -36,7 +36,7 @@ class Helpers
         // Make sure there’s no leading slash
         $path = ltrim($path, '/');
 
-        return SPACENAME_URL . $path;
+        return SPACENAME_URL . 'frontend/' . $path;
     }
 
 
