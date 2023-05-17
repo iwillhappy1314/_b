@@ -4,14 +4,11 @@
   "require": {
     "php": ">=7.1",
     "ext-json": "*",
-    "symfony/translation": "^4.4",
     "wenprise/wp-db-base": "^1.2",
-    "wenprise/wordpress-dispatcher": "^2.1",
-    "wenprise/eloquent": "^0.1.2"
+    "wenprise/wordpress-dispatcher": "^2.1"
   },
   "require-dev": {
-    "wenprise/debug": "^1.0",
-    "brianhenryie/strauss": "^0.5.0"
+    "wenprise/debug": "^1.0"
   },
   "autoload": {
     "psr-4": {
@@ -30,10 +27,5 @@
     "preferred-install": {
       "*": "dist"
     }
-  },
-  "scripts": {
-    "strauss": [
-      "@php strauss.phar"
-    ]
   }
 }

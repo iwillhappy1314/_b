@@ -1,9 +1,4 @@
-assets/.sass-cache/
-vendor/
-build/
 .idea/
-dist/
 frontend/node_modules/
-composer.lock
+frontend/mix-manifest.json
 .DS_Store
-mix-manifest.json

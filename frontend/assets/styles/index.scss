@@ -1,2 +1,5 @@
+
+/* Tailwind 类要加 rs- 前缀，否则 apply 时会因为找不到类而报错 */
+
 @tailwind components;
 @tailwind utilities;

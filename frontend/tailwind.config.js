@@ -1,9 +1,8 @@
 module.exports = {
     prefix: 'rs-',
     content   : [
-        './index.html',
-        './templates/**/*.php',
-        './frontend/**/*.{vue,js,ts,jsx,tsx}',
+        '../src/**/*.php',
+        '../templates/**/*.php',
     ],
     //darkMode: false, // or 'media' or 'class'
     theme   : {
