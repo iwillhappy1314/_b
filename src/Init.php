@@ -3,6 +3,7 @@
 namespace WenpriseSpaceName;
 
 use Wenprise\Dispatcher\Router;
+use WenpriseSpaceName\Views\Metaboxes\PostMetabox;
 use WenpriseSpaceName\Admin\Pages\AddPage;
 use WenpriseSpaceName\Controllers\AddressApiController;
 use WenpriseSpaceName\Admin\Pages\AdminIndexPage;
@@ -20,12 +21,12 @@ class Init
             AddPage::class,
             AdminIndexPage::class,
             Frontend::class,
+            PostMetabox::class
         ];
 
         foreach ($classes as $class) {
             new $class;
         }
-
 
         add_action('rest_api_init', [new AddressApiController, 'register_routes']);
 
