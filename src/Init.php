@@ -7,6 +7,7 @@ use WenpriseSpaceName\Views\Metaboxes\PostMetabox;
 use WenpriseSpaceName\Admin\Pages\AddPage;
 use WenpriseSpaceName\Controllers\AddressApiController;
 use WenpriseSpaceName\Admin\Pages\AdminIndexPage;
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 
 class Init
@@ -47,9 +48,9 @@ class Init
 
     public function setUpdateChecker()
     {
-        $theme_update_checker = \Puc_v4_Factory::buildUpdateChecker(
+        $update_checker = PucFactory::buildUpdateChecker(
             'https://api.wpcio.com/api/plugin/info/_b',
-            get_parent_theme_file_path('functions.php'),
+            SPACENAME_MAIN_FILE,
             '_b'
         );
     }
