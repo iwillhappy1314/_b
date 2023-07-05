@@ -6,7 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Wenprise\\' => array($vendorDir . '/wenprise/debug/src', $vendorDir . '/wenprise/wordpress-dispatcher/src'),
+    'Wenprise\\' => array($vendorDir . '/wenprise/debug/src', $vendorDir . '/wenprise/wordpress-dispatcher/src', $vendorDir . '/wenprise/templates-helper/src'),
     'WenpriseSpaceName\\' => array($baseDir . '/src'),
     'WPDBase\\' => array($vendorDir . '/wenprise/wp-db-base/src'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),

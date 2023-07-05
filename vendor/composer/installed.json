@@ -218,6 +218,46 @@
             "install-path": "../wenprise/debug"
         },
         {
+            "name": "wenprise/templates-helper",
+            "version": "0.5.1",
+            "version_normalized": "0.5.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iwillhappy1314/wenprise-templates-helper.git",
+                "reference": "6d772ac45bd2d250aab8c726909611c52c158398"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iwillhappy1314/wenprise-templates-helper/zipball/6d772ac45bd2d250aab8c726909611c52c158398",
+                "reference": "6d772ac45bd2d250aab8c726909611c52c158398",
+                "shasum": ""
+            },
+            "time": "2022-09-04T09:37:34+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Wenprise\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Amos Lee",
+                    "email": "iwillhappy1314@gmail.com"
+                }
+            ],
+            "description": "Helper function for WordPress templates loader and overwrite.",
+            "support": {
+                "issues": "https://github.com/iwillhappy1314/wenprise-templates-helper/issues",
+                "source": "https://github.com/iwillhappy1314/wenprise-templates-helper/tree/0.5.1"
+            },
+            "install-path": "../wenprise/templates-helper"
+        },
+        {
             "name": "wenprise/wordpress-dispatcher",
             "version": "2.1",
             "version_normalized": "2.1.0.0",

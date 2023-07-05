@@ -2,6 +2,8 @@
 
 namespace WenpriseSpaceName\Views\Shortcodes;
 
+use WenpriseSpaceName\Helpers;
+
 class QueryShortcode
 {
     public function __construct()
@@ -10,13 +12,12 @@ class QueryShortcode
     }
 
 
-    public function render()
+    public function render($attrs)
     {
         ob_start();
-        $template = SPACENAME_PATH . 'templates/app.php';
 
-        include $template;
-        
+        Helpers::get_template_part('my-affiliates', '', ['attrs' => $attrs]);
+
         return ob_get_clean();
     }
 }

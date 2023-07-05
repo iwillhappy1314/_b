@@ -3,7 +3,7 @@
         'name' => 'wenprise/bb',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'bb772fe09f79c40e8f7bc13924d77cdaaa6b0e98',
+        'reference' => '89ef90a380be3ff4c60cb1cb33566dad2cca2967',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'wenprise/bb' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'bb772fe09f79c40e8f7bc13924d77cdaaa6b0e98',
+            'reference' => '89ef90a380be3ff4c60cb1cb33566dad2cca2967',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -45,6 +45,15 @@
             'install_path' => __DIR__ . '/../wenprise/debug',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'wenprise/templates-helper' => array(
+            'pretty_version' => '0.5.1',
+            'version' => '0.5.1.0',
+            'reference' => '6d772ac45bd2d250aab8c726909611c52c158398',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wenprise/templates-helper',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'wenprise/wordpress-dispatcher' => array(
             'pretty_version' => '2.1',

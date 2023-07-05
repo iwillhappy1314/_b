@@ -2,6 +2,8 @@
 
 namespace WenpriseSpaceName;
 
+use Wenprise\TemplateHelper;
+
 class Helpers
 {
 
@@ -95,6 +97,29 @@ class Helpers
     public static function http_get($key = null, $default = null)
     {
         return static::data_get($_REQUEST, $key, $default);
+    }
+
+
+    /**
+     * @param       $slug
+     * @param       $name
+     * @param array $args
+     *
+     * @return void
+     */
+    public static function get_template_part($slug, $name = null, array $args = [])
+    {
+        $helper = new TemplateHelper('_b', SPACENAME_PATH . 'templates/');
+
+        $name = (string)$name;
+
+        if ('' !== $name) {
+            $template = "{$slug}-{$name}.php";
+        } else {
+            $template = "{$slug}.php";
+        }
+
+        $helper->get_template($template, $args);
     }
 
 }

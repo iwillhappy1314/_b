@@ -32,6 +32,7 @@ class ComposerStaticInit96413ff2410eddd3b2b511c869bbedca
         array (
             0 => __DIR__ . '/..' . '/wenprise/debug/src',
             1 => __DIR__ . '/..' . '/wenprise/wordpress-dispatcher/src',
+            2 => __DIR__ . '/..' . '/wenprise/templates-helper/src',
         ),
         'WenpriseSpaceName\\' => 
         array (
