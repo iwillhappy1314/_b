@@ -21,7 +21,7 @@ class Init
             AddPage::class,
             AdminIndexPage::class,
             Frontend::class,
-            PostMetabox::class
+            PostMetabox::class,
         ];
 
         foreach ($classes as $class) {
@@ -31,6 +31,7 @@ class Init
         add_action('rest_api_init', [new AddressApiController, 'register_routes']);
 
         $this->setRouter();
+        $this->setUpdateChecker();
     }
 
 
@@ -41,6 +42,16 @@ class Init
         ];
 
         Router::routes(apply_filters('_b_routers', $routers));
+    }
+
+
+    public function setUpdateChecker()
+    {
+        $theme_update_checker = \Puc_v4_Factory::buildUpdateChecker(
+            'https://api.wpcio.com/api/plugin/info/_b',
+            get_parent_theme_file_path('functions.php'),
+            '_b'
+        );
     }
 
 }

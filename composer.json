@@ -5,7 +5,8 @@
     "php": ">=7.1",
     "ext-json": "*",
     "wenprise/wp-db-base": "^1.2",
-    "wenprise/wordpress-dispatcher": "^2.1"
+    "wenprise/wordpress-dispatcher": "^2.1",
+    "yahnis-elsts/plugin-update-checker": "^5.1"
   },
   "require-dev": {
     "wenprise/debug": "^1.0"
