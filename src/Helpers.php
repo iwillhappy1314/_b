@@ -94,7 +94,7 @@ class Helpers
      *
      * @return mixed|null
      */
-    public static function http_get($key = null, $default = null)
+    public static function input_get($key = null, $default = null)
     {
         return static::data_get($_REQUEST, $key, $default);
     }
