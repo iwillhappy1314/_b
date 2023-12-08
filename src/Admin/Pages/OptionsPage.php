@@ -32,8 +32,8 @@ class OptionsPage
     {
         $hook = add_submenu_page(
             'trademarks',
-            __('系统设置', 'trademark-monitor'),
-            __('系统设置', 'trademark-monitor'),
+            __('系统设置', '_b'),
+            __('系统设置', '_b'),
             'manage_options',
             'trademark-options',
             [$this, 'render_page']
@@ -85,7 +85,7 @@ class OptionsPage
         <?= Helpers::show_messages(); ?>
 
         <div class="wrap">
-            <h2><?php _e('数据设置', 'trademark-monitor'); ?></h2>
+            <h2><?php _e('数据设置', '_b'); ?></h2>
         </div>
 
         <div class="nav-tab-wrapper wp-clearfix nav nav-tabs tm-tabs"></div>

@@ -34,8 +34,8 @@ class OrderListPage
     public function add_page()
     {
         $hook = add_menu_page(
-            __('商标监测', 'trademark-monitor'),
-            __('商标监测', 'trademark-monitor'),
+            __('Orders', '_b'),
+            __('Orders', '_b'),
             'edit_posts',
             'trademarks',
             [$this, 'render_page'],

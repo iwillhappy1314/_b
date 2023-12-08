@@ -69,9 +69,9 @@ class OrderListTable extends \WP_List_Table
         }
 
         return [
-            "all"      => __("<a href='" . remove_query_arg('condition') . "'>全部</a> (" . $all_count . ")", 'trademark-monitor'),
-            "normal"   => __("<a href='" . add_query_arg('condition', 'normal') . "'>正常</a> (" . $normal_count . ")", 'trademark-monitor'),
-            "abnormal" => __("<a href='" . add_query_arg('condition', 'abnormal') . "'>异常</a> (" . ($all_count - $normal_count) . ")", 'trademark-monitor'),
+            "all"      => __("<a href='" . remove_query_arg('condition') . "'>全部</a> (" . $all_count . ")", '_b'),
+            "normal"   => __("<a href='" . add_query_arg('condition', 'normal') . "'>正常</a> (" . $normal_count . ")", '_b'),
+            "abnormal" => __("<a href='" . add_query_arg('condition', 'abnormal') . "'>异常</a> (" . ($all_count - $normal_count) . ")", '_b'),
         ];
     }
 
