@@ -2,7 +2,7 @@
 
 namespace WenpriseSpaceName\Views\ListTables;
 
-use Wenprise\Mvc\Helpers;
+use WenpriseSpaceName\Helpers;
 use WenpriseSpaceName\Models\OrderModel;
 use Wenprise\Forms\Form;
 use Wenprise\Forms\Renders\DefaultFormRender;
@@ -40,8 +40,8 @@ class OrderListTable extends \WP_List_Table
         $model = OrderModel::query();
 
         // 搜索
-        if (\WenpriseSpaceName\Helpers::input_get('s')) {
-            $model->where('application_no', '=', \WenpriseSpaceName\Helpers::input_get('s'));
+        if (Helpers::input_get('s')) {
+            $model->where('application_no', '=', Helpers::input_get('s'));
         }
 
         $this->datasets = $model->get()->toArray();
@@ -104,7 +104,7 @@ class OrderListTable extends \WP_List_Table
             $form->setRenderer(new DefaultFormRender('vertical'));
 
             $form->addChosen('nation', '国家/地区', array_merge(['所有国家'], $countries))
-                 ->setDefaultValue(\WenpriseSpaceName\Helpers::input_get('nation'));
+                 ->setDefaultValue(Helpers::input_get('nation'));
 
             $form->addChosen('status', '状态', array_merge(['所有状态'], Helpers::get_config('general.status')));
 
@@ -229,7 +229,7 @@ class OrderListTable extends \WP_List_Table
     public function process_bulk_action()
     {
         $send_back = remove_query_arg(['trashed', 'untrashed', 'deleted', 'locked', 'ids'], wp_get_referer());
-        $ids       = (array)\WenpriseSpaceName\Helpers::input_get($this->_args[ 'singular' ]);
+        $ids       = (array)Helpers::input_get($this->_args[ 'singular' ]);
 
         if ('delete' === $this->current_action()) {
             foreach ($ids as $id) {

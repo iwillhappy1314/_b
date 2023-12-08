@@ -5,7 +5,7 @@ namespace WenpriseSpaceName;
 use Wenprise\TemplateHelper;
 use Plasticbrain\FlashMessages\FlashMessages;
 
-class Helpers
+class Helpers extends \Wenprise\Mvc\Helpers
 {
 
     /**
