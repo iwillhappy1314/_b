@@ -134,7 +134,7 @@ class Helpers
     public static function info_log($message, $note = '')
     {
         if (WP_DEBUG && SPACENAME_DEBUG) {
-            error_log($note . var_export($message, true));
+            error_log($note . var_export($message, true), 3, WP_CONTENT_DIR . '/' . SPACENAME_PLUGIN_SLUG . '-info.log');
         }
     }
 

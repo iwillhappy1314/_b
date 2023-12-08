@@ -10,6 +10,7 @@ Author URI:         http://www.wpzhiku.com/
 
 defined('WPINC') || die;
 
+const SPACENAME_PLUGIN_SLUG = '_b';
 const SPACENAME_VERSION = '1.0.0';
 const SPACENAME_DEBUG = true;
 const SPACENAME_MAIN_FILE = __FILE__;
