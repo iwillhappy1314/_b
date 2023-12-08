@@ -2,7 +2,9 @@
 
 namespace WenpriseSpaceName;
 
+use WenpriseSpaceName\Providers\RoutingService;
 use Wenprise\Dispatcher\Router;
+use Wenprise\Mvc\App;
 use WenpriseSpaceName\Views\Metaboxes\PostMetabox;
 use WenpriseSpaceName\Admin\Pages\AddPage;
 use WenpriseSpaceName\Controllers\AddressApiController;
@@ -31,8 +33,43 @@ class Init
 
         add_action('rest_api_init', [new AddressApiController, 'register_routes']);
 
+        $this->initMvc();
         $this->setRouter();
         $this->setUpdateChecker();
+    }
+
+
+    public function initMvc(){
+        $GLOBALS[ '_b-app' ] = App::instance();
+
+        /*
+         * 获取服务容器
+         */
+        $container = $GLOBALS[ '_b-app' ]->container;
+
+        /*
+         * 注册主题视图路径
+         */
+        $container[ 'view.finder' ]->addLocation(SPACENAME_PATH . 'templates');
+
+
+        /*
+         * 加载配置文件
+         */
+        $container[ 'config.finder' ]->addPaths([
+            SPACENAME_PATH . 'config/',
+        ]);
+
+        /**
+         * 主题服务提供者
+         */
+        $providers = [
+            RoutingService::class,
+        ];
+
+        foreach ($providers as $provider) {
+            $container->register($provider);
+        }
     }
 
 

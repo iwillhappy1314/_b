@@ -2,3 +2,4 @@ frontend/node_modules/
 frontend/mix-manifest.json
 .DS_Store
 .idea
+vendor/

@@ -2,15 +2,16 @@
   "name": "wenprise/bb",
   "description": "Plugin developed by wenprise",
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.3",
     "ext-json": "*",
     "wenprise/wp-db-base": "^1.2",
     "wenprise/wordpress-dispatcher": "^2.1",
     "yahnis-elsts/plugin-update-checker": "^5.1",
-    "wenprise/templates-helper": "^0.5.1"
+    "wenprise/templates-helper": "^0.5.1",
+    "wenprise/mvc": "^2.0"
   },
   "require-dev": {
-    "wenprise/debug": "^1.0"
+    "wenprise/debug": "^8.0"
   },
   "autoload": {
     "psr-4": {
@@ -28,6 +29,10 @@
   "config": {
     "preferred-install": {
       "*": "dist"
+    },
+    "allow-plugins": {
+      "kylekatarnls/update-helper": true,
+      "composer/installers": true
     }
   }
 }
