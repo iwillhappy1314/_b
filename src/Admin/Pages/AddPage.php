@@ -7,7 +7,6 @@
 
 namespace WenpriseSpaceName\Admin\Pages;
 
-use Wenprise\Mvc\Helpers as MvcHelpers;
 use Wenprise\Forms\Form;
 use Wenprise\Forms\Renders\AdminFormRender;
 use WenpriseSpaceName\Helpers;
@@ -75,7 +74,7 @@ class AddPage
         if ($form->isSuccess()) {
             $values = (array)$form->getValues();
 
-            MvcHelpers::flash('success', '保存成功', '', true);
+            Helpers::flash('success', '保存成功', '', true);
         }
 
         $this->form = $form;
