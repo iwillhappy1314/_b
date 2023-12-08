@@ -32,7 +32,7 @@ class Helpers
         $path = str_replace($manifest_directory, '', $path);
         // Make sure there’s a leading slash
         $path = '/' . ltrim($path, '/');
-        
+
         // Get file URL from manifest file
         $path = $manifest[ $path ];
         // Make sure there’s no leading slash
@@ -120,6 +120,22 @@ class Helpers
         }
 
         $helper->get_template($template, $args);
+    }
+
+
+    /**
+     * Add debug message to error log
+     *
+     * @param        $message
+     * @param string $note
+     *
+     * @return void
+     */
+    public static function info_log($message, $note = '')
+    {
+        if (WP_DEBUG && SPACENAME_DEBUG) {
+            error_log($note . var_export($message, true));
+        }
     }
 
 }

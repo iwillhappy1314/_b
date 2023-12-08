@@ -11,6 +11,7 @@ Author URI:         http://www.wpzhiku.com/
 defined('WPINC') || die;
 
 const SPACENAME_VERSION = '1.0.0';
+const SPACENAME_DEBUG = true;
 const SPACENAME_MAIN_FILE = __FILE__;
 define('SPACENAME_PATH', plugin_dir_path(__FILE__));
 define('SPACENAME_URL', plugin_dir_url(__FILE__));
