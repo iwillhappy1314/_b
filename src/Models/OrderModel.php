@@ -2,20 +2,19 @@
 
 namespace WenpriseSpaceName\Models;
 
-
-use WenpriseSpaceNameVendor\Wenprise\ORM\Eloquent\Model;
+use \Wenprise\Eloquent\Model;
 
 /**
  * 序列号
  *
  * Class SerialNumber
  */
-class SerialNumberModel extends Model {
+class OrderModel extends Model {
 
     /**
      * @var string
      */
-    protected $table = 'serial_numbers';
+    protected $table = 'orders';
 
     /**
      * @var string
@@ -31,5 +30,13 @@ class SerialNumberModel extends Model {
      * @var array
      */
     protected $guarded = [ 'id' ];
+
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+    ];
 
 }

@@ -7,7 +7,7 @@ return [
     'key'            => 'erifhfgaergbae',
 
     // 支付状态
-    'payment_status' => [
+    'status' => [
         ''                => '全部状态',
         'waiting'         => '等待支付',
         'payment_timeout' => '支付超时',

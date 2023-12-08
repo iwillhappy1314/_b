@@ -14,4 +14,4 @@ use Wenprise\Mvc\Facades\Route;
 use Wenprise\Mvc\Facades\View;
 
 
-Route::get('account', 'AccountController@index' );
+Route::get('account', 'OrderController@index' );

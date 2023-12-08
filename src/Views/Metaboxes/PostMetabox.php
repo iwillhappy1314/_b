@@ -10,8 +10,6 @@ class PostMetabox
             add_action('load-post.php', [$this, 'init_metabox']);
             add_action('load-post-new.php', [$this, 'init_metabox']);
         }
-
-
     }
 
     /**

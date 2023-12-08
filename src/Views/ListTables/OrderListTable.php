@@ -2,13 +2,16 @@
 
 namespace WenpriseSpaceName\Views\ListTables;
 
-use WenpriseSpaceName\Models\SerialNumberModel;
+use Wenprise\Mvc\Helpers;
+use WenpriseSpaceName\Models\OrderModel;
+use Wenprise\Forms\Form;
+use Wenprise\Forms\Renders\DefaultFormRender;
 
 if ( ! class_exists('WP_List_Table')) {
     require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 }
 
-class SerialListTable extends \WP_List_Table
+class OrderListTable extends \WP_List_Table
 {
 
     /**
@@ -34,7 +37,83 @@ class SerialListTable extends \WP_List_Table
             'ajax'     => true,
         ]);
 
-        $this->datasets = SerialNumberModel::all()->toArray();
+        $model = OrderModel::query();
+
+        // 搜索
+        if (\WenpriseSpaceName\Helpers::input_get('s')) {
+            $model->where('application_no', '=', \WenpriseSpaceName\Helpers::input_get('s'));
+        }
+
+        $this->datasets = $model->get()->toArray();
+    }
+
+
+    protected function get_views(): array
+    {
+        $model = OrderModel::query();
+        if (current_user_can('administrator')) {
+            $all_count = OrderModel::all()->count();
+
+            $normal_count = $model->where('condition', '=', 'normal')
+                                  ->get()
+                                  ->count();
+        } else {
+            $all_count = OrderModel::query()
+                                   ->where('user_id', '=', get_current_user_id())
+                                   ->count();
+
+            $normal_count = $model->where('condition', '=', 'normal')
+                                  ->where('user_id', '=', get_current_user_id())
+                                  ->get()
+                                  ->count();
+        }
+
+        return [
+            "all"      => __("<a href='" . remove_query_arg('condition') . "'>全部</a> (" . $all_count . ")", 'trademark-monitor'),
+            "normal"   => __("<a href='" . add_query_arg('condition', 'normal') . "'>正常</a> (" . $normal_count . ")", 'trademark-monitor'),
+            "abnormal" => __("<a href='" . add_query_arg('condition', 'abnormal') . "'>异常</a> (" . ($all_count - $normal_count) . ")", 'trademark-monitor'),
+        ];
+    }
+
+
+    /**
+     * 添加筛选项目
+     *
+     * @param $which
+     *
+     * @return void
+     */
+    function extra_tablenav($which)
+    {
+        if ($which == 'top') {
+            $model = OrderModel::query();
+
+            // 翻译国家
+            $nations   = $model->distinct()->get('nation')->pluck('nation')->toArray();
+            $countries = [];
+            if ( ! empty($nations)) {
+                foreach ($nations as $nation) {
+                    $countries[ $nation ] = $nation;
+                }
+            }
+
+            $countries = array_unique($countries);
+
+            // 翻译类名
+            $form = new Form();
+            $form->setRenderer(new DefaultFormRender('vertical'));
+
+            $form->addChosen('nation', '国家/地区', array_merge(['所有国家'], $countries))
+                 ->setDefaultValue(\WenpriseSpaceName\Helpers::input_get('nation'));
+
+            $form->addChosen('status', '状态', array_merge(['所有状态'], Helpers::get_config('general.status')));
+
+            $form->addSubmit('submit', '筛选');
+
+            echo '<div class="rs-filter-form">';
+            $form->render('body');
+            echo '</div>';
+        }
     }
 
 
@@ -51,12 +130,10 @@ class SerialListTable extends \WP_List_Table
         switch ($column_name) {
             case 'serial_number':
                 return $this->column_title($item);
-            case 'status':
-                return $item[ $column_name ];
             case 'user':
                 return $item[ 'user_id' ] ? $item[ 'user_id' ] : 0;
             default:
-                return print_r($item, true);
+                return $item[ $column_name ];
         }
     }
 
@@ -79,7 +156,7 @@ class SerialListTable extends \WP_List_Table
 
         // Return the title contents
         return sprintf('%1$s %2$s',
-            $item[ 'serial_number' ],
+            $this->_args[ 'singular' ],
             $this->row_actions($actions)
         );
     }
@@ -141,7 +218,7 @@ class SerialListTable extends \WP_List_Table
     function get_bulk_actions()
     {
         return [
-            'delete' => 'Delete',
+            'delete' => __('Delete', '_b'),
         ];
     }
 
@@ -151,25 +228,24 @@ class SerialListTable extends \WP_List_Table
      */
     public function process_bulk_action()
     {
-        $sendback = remove_query_arg(['trashed', 'untrashed', 'deleted', 'locked', 'ids'], wp_get_referer());
-        $ids      = isset($_GET[ 'serial' ]) ? (array)$_GET[ 'serial' ] : [];
+        $send_back = remove_query_arg(['trashed', 'untrashed', 'deleted', 'locked', 'ids'], wp_get_referer());
+        $ids       = (array)\WenpriseSpaceName\Helpers::input_get($this->_args[ 'singular' ]);
 
         if ('delete' === $this->current_action()) {
             foreach ($ids as $id) {
-                $trashed = SerialNumberModel::destroy($id);
+                $trashed = OrderModel::destroy($id);
             }
 
-            wp_redirect(add_query_arg(['trashed' => count($ids), 'ids' => join('_', (array)$ids), 'locked' => 1], $sendback));
+            Helpers::flash('success', '成功删除' . count($ids) . '条数据', add_query_arg(['trashed' => count($ids), 'ids' => join('_', $ids), 'locked' => 1], $send_back));
         }
-
     }
 
 
     // 排序
     public function usort_reorder($a, $b)
     {
-        $orderby = ( ! empty($_REQUEST[ 'orderby' ])) ? $_REQUEST[ 'orderby' ] : 'serial_number';
-        $order   = ( ! empty($_REQUEST[ 'order' ])) ? $_REQUEST[ 'order' ] : 'asc';
+        $orderby = ( ! empty($_REQUEST[ 'orderby' ])) ? $_REQUEST[ 'orderby' ] : 'id';
+        $order   = ( ! empty($_REQUEST[ 'order' ])) ? $_REQUEST[ 'order' ] : 'desc';
         $result  = strcmp($a[ $orderby ], $b[ $orderby ]);
 
         return ($order === 'asc') ? $result : -$result;
@@ -187,7 +263,7 @@ class SerialListTable extends \WP_List_Table
 
         // 必须设置
         $columns  = $this->get_columns();
-        $hidden   = [];
+        $hidden   = get_hidden_columns($this->screen);
         $sortable = $this->get_sortable_columns();
 
 
