@@ -81,10 +81,10 @@ class PostMetabox
         /* OK, it's safe for us to save the data now. */
 
         // Sanitize the user input.
-        $mydata = sanitize_text_field($_POST[ '_b_new_field' ]);
+        $data = sanitize_text_field($_POST[ '_b_new_field' ]);
 
         // Update the meta field.
-        update_post_meta($post_id, '_b_new_field', $mydata);
+        update_post_meta($post_id, '_b_new_field', $data);
     }
 
 
