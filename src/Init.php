@@ -2,6 +2,8 @@
 
 namespace WenpriseSpaceName;
 
+use WenpriseSpaceName\Admin\Pages\CrmAddPage;
+use WenpriseSpaceName\Admin\Pages\CrmPage;
 use WenpriseSpaceName\Providers\RoutingService;
 use Wenprise\Dispatcher\Router;
 use Wenprise\Mvc\App;
@@ -25,6 +27,8 @@ class Init
             AdminIndexPage::class,
             Frontend::class,
             PostMetabox::class,
+            CrmPage::class,
+            CrmAddPage::class
         ];
 
         foreach ($classes as $class) {

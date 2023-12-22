@@ -21,7 +21,7 @@ class Helpers extends \Wenprise\Mvc\Helpers
         static $manifest_path;
 
         if ( ! $manifest_path) {
-            $manifest_path = $manifest_directory . 'frontend/mix-manifest.json';
+            $manifest_path = $manifest_directory . 'source/mix-manifest.json';
         }
 
         if ( ! $manifest) {
