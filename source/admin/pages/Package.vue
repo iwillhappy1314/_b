@@ -25,7 +25,7 @@ export default {
           'X-WP-Nonce'  : wenpriseSpaceNameAdminSettings.nonce,
         },
       },
-      url        : wenpriseSpaceNameAdminSettings.root + 'wp-transship/v1/addresses',
+      url        : wenpriseSpaceNameAdminSettings.root + '_b/v1/addresses',
       columns    : [
         {
           prop : 'name',
