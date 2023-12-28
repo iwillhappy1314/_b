@@ -21,7 +21,7 @@ class Helpers extends \Wenprise\Mvc\Helpers
         static $manifest_path;
 
         if ( ! $manifest_path) {
-            $manifest_path = $manifest_directory . 'source/mix-manifest.json';
+            $manifest_path = $manifest_directory . 'resources/mix-manifest.json';
         }
 
         if ( ! $manifest) {
@@ -39,7 +39,7 @@ class Helpers extends \Wenprise\Mvc\Helpers
         // Make sure there’s no leading slash
         $path = ltrim($path, '/');
 
-        return SPACENAME_URL . 'source/' . $path;
+        return SPACENAME_URL . 'resources/' . $path;
     }
 
 
