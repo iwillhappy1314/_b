@@ -15,8 +15,8 @@ class Frontend
     public function enqueue_scripts()
     {
 
-        wp_enqueue_style('_b', Helpers::get_assets_url('/dist/styles/index.css'));
-        wp_enqueue_script('_b', Helpers::get_assets_url('/dist/scripts/main.js'), ['jquery'], '1.0.0', true);
+        wp_enqueue_style('_b', Helpers::get_assets_url('/dist/index.css'));
+        wp_enqueue_script('_b', Helpers::get_assets_url('/dist/main.js'), ['jquery'], SPACENAME_VERSION, true);
 
         wp_localize_script('_b', 'wenpriseSpaceNameFrontendSettings', [
             'root'     => esc_url_raw(rest_url()),
@@ -31,8 +31,8 @@ class Frontend
     {
         global $pagenow;
 
-        wp_enqueue_style('_b-admin', Helpers::get_assets_url('/dist/styles/admin.css'));
-        wp_enqueue_script('_b-admin', Helpers::get_assets_url('/dist/scripts/admin.js'), ['jquery'], '1.0.0', true);
+        wp_enqueue_style('_b-admin', Helpers::get_assets_url('/dist/admin.css'));
+        wp_enqueue_script('_b-admin', Helpers::get_assets_url('/dist/admin.js'), ['jquery'], SPACENAME_VERSION, true);
 
         wp_localize_script('_b-admin', 'wenpriseSpaceNameAdminSettings', [
             'root'  => esc_url_raw(rest_url()),
@@ -41,8 +41,8 @@ class Frontend
 
         // 判断是否为可变商品
         if ($pagenow === 'post.php' && get_post_type($_GET[ 'post' ]) === 'product') {
-            wp_enqueue_style('_b-admin', Helpers::get_assets_url('admin', 'admin.css'), [], SPACENAME_VERSION, 'screen');
-            wp_enqueue_script('_b-admin', Helpers::get_assets_url('admin', 'scripts.js'), ['_b-runtime'], SPACENAME_VERSION, true);
+            wp_enqueue_style('_b-admin', Helpers::get_assets_url('admin.css'), [], SPACENAME_VERSION, 'screen');
+            wp_enqueue_script('_b-admin', Helpers::get_assets_url('scripts.js'), [], SPACENAME_VERSION, true);
         }
     }
 }

@@ -20,7 +20,7 @@ mix.webpackConfig({
         })],
 });
 
-mix.sass('frontend/styles/index.scss', 'dist/styles').
+mix.sass('frontend/index.scss', 'dist').
     tailwind().
     options({
         outputStyle: 'compressed',
@@ -29,8 +29,8 @@ mix.sass('frontend/styles/index.scss', 'dist/styles').
         ],
     });
 
-mix.js('frontend/scripts/main.js', 'dist/scripts');
-mix.js('admin/admin.js', 'dist/scripts').vue();
+mix.js('frontend/main.js', 'dist');
+mix.js('admin/admin.js', 'dist').vue();
 
 //mix.copyWatched('assets/images', 'dist/images').
 //    copyWatched('assets/fonts', 'dist/fonts');
