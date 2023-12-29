@@ -240,18 +240,6 @@ class OrderListTable extends \WP_List_Table
         }
     }
 
-
-    // 排序
-    public function usort_reorder($a, $b)
-    {
-        $orderby = ( ! empty($_REQUEST[ 'orderby' ])) ? $_REQUEST[ 'orderby' ] : 'id';
-        $order   = ( ! empty($_REQUEST[ 'order' ])) ? $_REQUEST[ 'order' ] : 'desc';
-        $result  = strcmp($a[ $orderby ], $b[ $orderby ]);
-
-        return ($order === 'asc') ? $result : -$result;
-    }
-
-
     /**
      * 准备数据
      */
@@ -277,8 +265,6 @@ class OrderListTable extends \WP_List_Table
 
         // 列表数据
         $data = $this->datasets;
-
-        usort($data, [$this, 'usort_reorder']);
 
         // 当前页数
         $current_page = $this->get_pagenum();
