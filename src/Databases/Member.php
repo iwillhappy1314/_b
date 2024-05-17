@@ -2,7 +2,7 @@
 
 namespace WenpriseSpaceName\Databases;
 
-use WenpriseSpaceNameVendor\WPDBase\Database;
+use WPDBase\Database;
 
 class Member extends Database
 {
