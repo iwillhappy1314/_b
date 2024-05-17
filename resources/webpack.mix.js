@@ -43,7 +43,7 @@ if (mix.inProduction()) {
 }
 
 mix.browserSync({
-    proxy         : 's.as',
+    proxy         : '_b.test',
     files         : [
         {
             match  : [
