@@ -1,5 +1,4 @@
 module.exports = {
-    prefix: 'rs-',
     content   : [
         '../src/**/*.php',
         '../templates/**/*.php',
