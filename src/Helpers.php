@@ -102,31 +102,6 @@ class Helpers extends \Wenprise\Mvc\Helpers
 
 
     /**
-     * 生成通知消息
-     *
-     * @param $type    string 通知消息类型
-     * @param $message string 通知消息内容
-     * @param $url     string|null 跳转 URL
-     * @param $sticky  bool 是否固定
-     */
-    public static function flash(string $type, string $message, string $url = null, bool $sticky = false)
-    {
-        $msg = new FlashMessages();
-        $msg->$type($message, $url, $sticky);
-    }
-
-    /**
-     * 显示通知消息
-     */
-    public static function show_messages()
-    {
-        $msg = new FlashMessages();
-
-        return $msg->display(null, false);
-    }
-
-
-    /**
      * @param       $slug
      * @param       $name
      * @param array $args
