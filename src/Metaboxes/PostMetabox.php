@@ -1,6 +1,6 @@
 <?php
 
-namespace WenpriseSpaceName\Views\Metaboxes;
+namespace WenpriseSpaceName\Metaboxes;
 
 class PostMetabox
 {

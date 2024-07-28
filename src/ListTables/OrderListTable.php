@@ -1,6 +1,6 @@
 <?php
 
-namespace WenpriseSpaceName\Views\ListTables;
+namespace WenpriseSpaceName\ListTables;
 
 use WenpriseSpaceName\Helpers;
 use WenpriseSpaceName\Models\OrderModel;

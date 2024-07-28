@@ -3,7 +3,6 @@
 namespace WenpriseSpaceName;
 
 use Wenprise\TemplateHelper;
-use Plasticbrain\FlashMessages\FlashMessages;
 
 class Helpers extends \Wenprise\Mvc\Helpers
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace WenpriseSpaceName\Views\Shortcodes;
+namespace WenpriseSpaceName\Shortcodes;
 
 use WenpriseSpaceName\Helpers;
 

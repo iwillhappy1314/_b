@@ -5,10 +5,10 @@
  * @package WenPrise
  */
 
-namespace WenpriseSpaceName\Admin\Pages;
+namespace WenpriseSpaceName\AdminPages;
 
 use WenpriseSpaceName\Helpers;
-use WenpriseSpaceName\Views\ListTables\OrderListTable;
+use WenpriseSpaceName\ListTables\OrderListTable;
 use WenpriseSpaceName\Models\OrderModel;
 use Wenprise\Forms\Form;
 use Wenprise\Forms\Renders\DefaultFormRender;
@@ -152,6 +152,3 @@ class OrderListPage
     }
 
 }
-
-
-

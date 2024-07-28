@@ -5,7 +5,7 @@
  * @package WenPrise
  */
 
-namespace WenpriseSpaceName\Admin\Pages;
+namespace WenpriseSpaceName\AdminPages;
 
 use Wenprise\Forms\Form;
 use Wenprise\Forms\Renders\AdminFormRender;
@@ -94,6 +94,3 @@ class AddPage
     }
 
 }
-
-
-

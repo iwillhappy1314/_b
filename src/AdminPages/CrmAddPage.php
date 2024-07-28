@@ -5,7 +5,7 @@
  * @package WenPrise
  */
 
-namespace WenpriseSpaceName\Admin\Pages;
+namespace WenpriseSpaceName\AdminPages;
 
 class CrmAddPage
 {
@@ -41,6 +41,3 @@ class CrmAddPage
     }
 
 }
-
-
-

@@ -2,15 +2,15 @@
 
 namespace WenpriseSpaceName;
 
-use WenpriseSpaceName\Admin\Pages\CrmAddPage;
-use WenpriseSpaceName\Admin\Pages\CrmPage;
+use WenpriseSpaceName\AdminPages\CrmAddPage;
+use WenpriseSpaceName\AdminPages\CrmPage;
+use WenpriseSpaceName\AdminPages\AddPage;
+use WenpriseSpaceName\AdminPages\AdminIndexPage;
 use WenpriseSpaceName\Providers\RoutingService;
 use Wenprise\Dispatcher\Router;
 use Wenprise\Mvc\App;
-use WenpriseSpaceName\Views\Metaboxes\PostMetabox;
-use WenpriseSpaceName\Admin\Pages\AddPage;
+use WenpriseSpaceName\Metaboxes\PostMetabox;
 use WenpriseSpaceName\Controllers\AddressApiController;
-use WenpriseSpaceName\Admin\Pages\AdminIndexPage;
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 

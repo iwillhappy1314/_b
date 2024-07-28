@@ -5,7 +5,7 @@
  * @package WenPrise
  */
 
-namespace WenpriseSpaceName\Admin\Pages;
+namespace WenpriseSpaceName\AdminPages;
 
 use TrademarkMonitor\Helpers;
 use Wenprise\Forms\Datastores\OptionsDatastore;
@@ -98,6 +98,3 @@ class OptionsPage
     }
 
 }
-
-
-
