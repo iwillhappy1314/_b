@@ -1,108 +1,140 @@
 <?php
 
-if ( ! defined('WP_CLI') ) {
-	return;
+if ( ! defined('WP_CLI')) {
+    return;
 }
 
 /**
- * Generates files for the WP Keywords Manager plugin.
+ * Generates files for the WordPress plugin.
  */
-class WP_Mvc_Generator_Command {
+class WP_Mvc_Generator_Command
+{
 
-	private $namespace;
-	private $base_dir;
-	private $model;
+    private $namespace;
 
-	/**
-	 * Generates the necessary files for the WP Keywords Manager plugin.
-	 *
-	 * ## OPTIONS
-	 *
-	 * [--dir=<dir>]
-	 * : The base directory to create the files in. Defaults to the current directory.
-	 *
-	 * [--namespace=<namespace>]
-	 * : The namespace to use for the generated files. If not provided, it will be determined from composer.json.
-	 *
-	 * [--model=<model>]
-	 * : The model name to use for the generated files. Defaults to 'Keywords'.
-	 *
-	 * ## EXAMPLES
-	 *
-	 *     wp keywords-manager generate
-	 *     wp keywords-manager generate --dir=/path/to/plugin
-	 *     wp keywords-manager generate --namespace=MyNamespace
-	 *     wp keywords-manager generate --model=MyModel
-	 *
-	 * @when after_wp_load
-	 */
-	public function generate( $args, $assoc_args ) {
-		$this->base_dir = isset( $assoc_args['dir'] ) ? $assoc_args['dir'] : getcwd();
+    private $base_dir;
 
-		if ( !is_dir( $this->base_dir ) ) {
-			WP_CLI::error( "The specified directory does not exist." );
-			return;
-		}
+    private $model;
 
-		$this->namespace = isset( $assoc_args['namespace'] ) ? $assoc_args['namespace'] : $this->get_psr4_namespace();
-		if ( !$this->namespace ) {
-			WP_CLI::error( "Could not determine PSR-4 namespace from composer.json." );
-			return;
-		}
+    private $slug_singular;
 
-		$this->model = isset( $assoc_args['model'] ) ? $assoc_args['model'] : 'Keywords';
+    private $slug_plural;
 
-		$files = [
-			'AdminPages/' . $this->model . 'ListPage.php' => $this->get_keyword_list_page_content(),
-			'Databases/' . $this->model . '.php' => $this->get_keyword_database_content(),
-			'ListTables/' . $this->model . 'ListTable.php' => $this->get_keyword_list_table_content(),
-			'Models/' . $this->model . 'Model.php' => $this->get_keyword_model_content(),
-			'Api/' . $this->model . 'Api.php' => $this->get_keywords_api_content(),
-		];
+    private $plugin_name;
 
-		foreach ( $files as $filepath => $content ) {
-			$full_path = $this->base_dir . '/src/' . $filepath;
-			$dir = dirname($full_path);
 
-			if ( !is_dir( $dir ) ) {
-				if ( !mkdir( $dir, 0755, true ) ) {
-					WP_CLI::error( "Failed to create directory: $dir" );
-					continue;
-				}
-			}
+    /**
+     * Generates the necessary files for the WordPress plugin.
+     *
+     * ## OPTIONS
+     *
+     * [--model=<model>]
+     * : The model name to use for the generated files. Defaults to 'Keywords'.
+     *
+     * [--slug=<slug>]
+     * : The slug to use instead of 'keyword/keywords' in the generated files. Provide in format 'singular,plural'. Defaults to 'book,books'.
+     *
+     * ## EXAMPLES
+     *
+     *     wp mvc generate
+     *     wp mvc generate --model=MyModel
+     *     wp mvc generate --slug=tag,tags
+     *
+     * @when after_wp_load
+     */
+    public function generate($args, $assoc_args)
+    {
+        $this->base_dir = isset($assoc_args[ 'dir' ]) ? $assoc_args[ 'dir' ] : getcwd();
 
-			if ( file_put_contents( $full_path, $content ) ) {
-				WP_CLI::success( "Created file: $full_path" );
-			} else {
-				WP_CLI::error( "Failed to create file: $full_path" );
-			}
-		}
+        if ( ! is_dir($this->base_dir)) {
+            WP_CLI::error("The specified directory does not exist.");
 
-		WP_CLI::success( "All files have been generated successfully." );
-	}
+            return;
+        }
 
-	private function get_psr4_namespace() {
-		$composer_path = $this->base_dir . '/composer.json';
-		if ( !file_exists( $composer_path ) ) {
-			WP_CLI::warning( "composer.json not found in the specified directory." );
-			return false;
-		}
+        $this->plugin_name = basename($this->base_dir);
 
-		$composer_content = file_get_contents( $composer_path );
-		$composer_json = json_decode( $composer_content, true );
+        $this->namespace = isset($assoc_args[ 'namespace' ]) ? $assoc_args[ 'namespace' ] : $this->get_psr4_namespace();
+        if ( ! $this->namespace) {
+            WP_CLI::error("Could not determine PSR-4 namespace from composer.json.");
 
-		if ( !isset( $composer_json['autoload']['psr-4'] ) ) {
-			WP_CLI::warning( "PSR-4 autoload configuration not found in composer.json." );
-			return false;
-		}
+            return;
+        }
 
-		$psr4 = $composer_json['autoload']['psr-4'];
-		$namespace = key($psr4);
-		return rtrim($namespace, '\\');
-	}
+        $this->model = isset($assoc_args[ 'model' ]) ? $assoc_args[ 'model' ] : 'Books';
 
-	private function get_keyword_list_table_content() {
-		return "<?php
+        if (isset($assoc_args[ 'slug' ])) {
+            $slugs = explode(',', $assoc_args[ 'slug' ]);
+            if (count($slugs) !== 2) {
+                WP_CLI::error("Slug must be provided in format 'singular,plural'.");
+
+                return;
+            }
+            $this->slug_singular = trim($slugs[ 0 ]);
+            $this->slug_plural   = trim($slugs[ 1 ]);
+        } else {
+            $this->slug_singular = 'book';
+            $this->slug_plural   = 'books';
+        }
+
+        $files = [
+            'AdminPages/' . $this->model . 'ListPage.php'  => $this->get_list_page_content(),
+            'Databases/' . $this->model . '.php'           => $this->get_database_content(),
+            'ListTables/' . $this->model . 'ListTable.php' => $this->get_list_table_content(),
+            'Models/' . $this->model . 'Model.php'         => $this->get_model_content(),
+            'Api/' . $this->model . 'Api.php'              => $this->get_api_content(),
+        ];
+
+        foreach ($files as $filepath => $content) {
+            $full_path = $this->base_dir . '/src/' . $filepath;
+            $dir       = dirname($full_path);
+
+            if ( ! is_dir($dir)) {
+                if ( ! mkdir($dir, 0755, true)) {
+                    WP_CLI::error("Failed to create directory: $dir");
+                    continue;
+                }
+            }
+
+            if (file_put_contents($full_path, $content)) {
+                WP_CLI::success("Created file: $full_path");
+            } else {
+                WP_CLI::error("Failed to create file: $full_path");
+            }
+        }
+
+        WP_CLI::success("All files have been generated successfully.");
+    }
+
+
+    private function get_psr4_namespace()
+    {
+        $composer_path = $this->base_dir . '/composer.json';
+        if ( ! file_exists($composer_path)) {
+            WP_CLI::warning("composer.json not found in the specified directory.");
+
+            return false;
+        }
+
+        $composer_content = file_get_contents($composer_path);
+        $composer_json    = json_decode($composer_content, true);
+
+        if ( ! isset($composer_json[ 'autoload' ][ 'psr-4' ])) {
+            WP_CLI::warning("PSR-4 autoload configuration not found in composer.json.");
+
+            return false;
+        }
+
+        $psr4      = $composer_json[ 'autoload' ][ 'psr-4' ];
+        $namespace = key($psr4);
+
+        return rtrim($namespace, '\\');
+    }
+
+
+    private function get_list_table_content()
+    {
+        return "<?php
 namespace {$this->namespace}\ListTables;
 
 use Wenprise\Forms\Form;
@@ -132,8 +164,8 @@ class {$this->model}ListTable extends \WP_List_Table {
 
         //Set parent defaults
         parent::__construct([
-            'singular' => 'keywords',
-            'plural'   => 'keywords',
+            'singular' => '$this->slug_singular',
+            'plural'   => '$this->slug_plural',
             'ajax'     => true,
         ]);
 
@@ -141,7 +173,7 @@ class {$this->model}ListTable extends \WP_List_Table {
 
         // 搜索
         if ( Helpers::input_get( 's' ) ) {
-            \$model->where( 'keyword', 'LIKE', Helpers::input_get( 's' ) );
+            \$model->where( 'name', 'LIKE', Helpers::input_get( 's' ) );
         }
 
         \$this->datasets = \$model->get()->toArray();
@@ -156,9 +188,9 @@ class {$this->model}ListTable extends \WP_List_Table {
                                ->count();
 
         return [
-            'all'      => __('<a href=\"' . remove_query_arg('condition') . '\">全部</a> (' . \$all_count . ')', 'wp-keywords-manager'),
-            'normal'   => __('<a href=\"' . add_query_arg('condition', 'normal') . '\">正常</a> (' . \$normal_count . ')', 'wp-keywords-manager'),
-            'abnormal' => __('<a href=\"' . add_query_arg('condition', 'abnormal') . '\">异常</a> (' . (\$all_count - \$normal_count) . ')', 'wp-keywords-manager'),
+            'all'      => __('<a href=\"' . remove_query_arg('condition') . '\">全部</a> (' . \$all_count . ')', '$this->plugin_name'),
+            'normal'   => __('<a href=\"' . add_query_arg('condition', 'normal') . '\">正常</a> (' . \$normal_count . ')', '$this->plugin_name'),
+            'abnormal' => __('<a href=\"' . add_query_arg('condition', 'abnormal') . '\">异常</a> (' . (\$all_count - \$normal_count) . ')', '$this->plugin_name'),
         ];
     }
 
@@ -195,7 +227,7 @@ class {$this->model}ListTable extends \WP_List_Table {
      */
     public function column_default( \$item, \$column_name ) {
         switch ( \$column_name ) {
-            case 'keywords':
+            case 'name':
                 return \$item[ \$column_name ] . \$this->column_title( \$item );
             default:
                 return \$item[ \$column_name ];
@@ -243,8 +275,7 @@ class {$this->model}ListTable extends \WP_List_Table {
     public function get_columns() {
         return [
             'cb'           => '<input type=\"checkbox\" />',
-            'keywords'      => __('关键词', 'wenprise-serial-manager'),
-            'article_link' => __('文章链接', 'wenprise-serial-manager'),
+            'name'      => __('名称', 'wenprise-serial-manager'),
             'status'       => __('状态', 'wenprise-serial-manager'),
         ];
     }
@@ -256,7 +287,7 @@ class {$this->model}ListTable extends \WP_List_Table {
      */
     function get_sortable_columns() {
         return [
-            'keywords' => ['keyword', false],
+            'name' => ['name', false],
             'status'  => ['status', false],
         ];
     }
@@ -268,7 +299,7 @@ class {$this->model}ListTable extends \WP_List_Table {
      */
     function get_bulk_actions() {
         return [
-            'delete' => __('Delete', 'wp-keywords-manager'),
+            'delete' => __('Delete', '$this->plugin_name'),
         ];
     }
 
@@ -331,12 +362,12 @@ class {$this->model}ListTable extends \WP_List_Table {
     }
 }
 ";
-	}
+    }
 
 
-
-	private function get_keyword_database_content() {
-		return "<?php
+    private function get_database_content()
+    {
+        return "<?php
 namespace {$this->namespace}\Databases;
 
 use WPDBase\Database;
@@ -350,27 +381,27 @@ class {$this->model} extends Database {
 
         return [
 
-            \"CREATE TABLE `{\$this->wpdb->prefix}km_keywords` (
+            \"CREATE TABLE `{\$this->wpdb->prefix}{$this->slug_plural}` (
                 `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-                `topic_id` bigint(20) unsigned DEFAULT NULL,
+                `user_id` bigint(20) unsigned DEFAULT NULL,
                 `parent_id` bigint(20) unsigned DEFAULT 0,
-                `keywords` varchar(255) UNIQUE DEFAULT NULL,
-                `article_link` varchar(255) DEFAULT NULL,
+                `name` varchar(255) UNIQUE DEFAULT NULL,
                 `status` varchar(255) DEFAULT NULL,
                 PRIMARY KEY (`id`),
-                KEY (`keywords`)
+                KEY (`name`)
             ) {\$this->collate};\",
 
         ];
     }
 }
 ";
-	}
+    }
 
 
-	private function get_keyword_list_page_content() {
-		return "<?php
-namespace {$this->namespace}\Admin\Pages;
+    private function get_list_page_content()
+    {
+        return "<?php
+namespace {$this->namespace}\AdminPages;
 
 use {$this->namespace}\Helpers;
 use {$this->namespace}\ListTables\\{$this->model}ListTable;
@@ -386,7 +417,7 @@ class {$this->model}ListPage {
     public function __construct() {
         add_action( 'admin_menu', [ \$this, 'add_page' ] );
 
-        if ( Helpers::input_get( 'page' ) === 'keywords' ) {
+        if ( Helpers::input_get( 'page' ) === '$this->slug_singular' ) {
             add_action( 'admin_init', [ \$this, 'set_form' ] );
         }
 
@@ -395,10 +426,10 @@ class {$this->model}ListPage {
 
     public function add_page() {
         \$hook = add_menu_page(
-            __( '关键词', 'wp-keywords-manager' ),
-            __( '关键词', 'wp-keywords-manager' ),
+            __( ucfirst('$this->slug_singular'), '$this->plugin_name' ),
+            __( ucfirst('$this->slug_plural'), '$this->plugin_name' ),
             'edit_posts',
-            'keywords',
+            '$this->slug_singular',
             [ \$this, 'render_page' ],
             'dashicons-admin-network'
         );
@@ -418,7 +449,7 @@ class {$this->model}ListPage {
         \$args = [
             'label'   => '每页显示的项目数',
             'default' => get_user_meta( get_current_user_id(), 'trademarks_per_page', true ) ? get_user_meta( get_current_user_id(), 'trademarks_per_page', true ) : 10,
-            'option'  => 'trademarks_per_page',
+            'option'  => 'wprs_per_page',
         ];
 
         add_screen_option( \$option, \$args );
@@ -447,16 +478,16 @@ class {$this->model}ListPage {
 
         \$form->addGroup();
 
-        \$form->addText( 'keywords', '邮箱' );
+        \$form->addText( 'name', '名称' );
 
-        \$form->addSubmit( 'submit', '添加关键词' );
+        \$form->addSubmit( 'submit', '添加' );
 
         if ( \$form->isSuccess() ) {
             \$values = \$form->getValues();
 
-            if ( Helpers::input_get( 'keywords' ) ) {
-                \$trademark = {$this->model}Model::query()->firstOrCreate( (array) \$values );
-                \$trademark->save();
+            if ( Helpers::input_get( 'name' ) ) {
+                \$model = {$this->model}Model::query()->firstOrCreate( (array) \$values );
+                \$model->save();
 
                 Helpers::flash( 'success', '添加成功', '', true );
             }
@@ -469,12 +500,12 @@ class {$this->model}ListPage {
         ?>
 
         <div class=\"wrap\">
-            <h1 class=\"wp-heading-inline\"><?= __( '全部关键词', 'wenprise-serial-manager' ) ?></h1>
+            <h1 class=\"wp-heading-inline\"><?= __( '全部图书', 'wenprise-serial-manager' ) ?></h1>
 
-            <?php Helpers::render_modal( 'createTicket', '新增关键词', \$this->form ); ?>
+            <?php Helpers::render_modal( 'createTicket', '新增图书', \$this->form ); ?>
 
-            <a href=\"<?= admin_url( 'admin.php?page=trademark-import' ); ?>\" class=\"page-title-action\">导入数据</a>
-            <a href=\"<?= add_query_arg( 'action', 'tm-monitor-export' ) ?>\" class=\"page-title-action\">导出数据</a>
+            <a href=\"<?= admin_url( 'admin.php?page=book-import' ); ?>\" class=\"page-title-action\">导入数据</a>
+            <a href=\"<?= add_query_arg( 'action', 'wprs-book-export' ) ?>\" class=\"page-title-action\">导出数据</a>
 
             <?= Helpers::show_messages(); ?>
 
@@ -482,7 +513,7 @@ class {$this->model}ListPage {
                 <?php \$this->table->views(); ?>
             </div>
 
-            <form id=\"keywords-filter\" method=\"get\">
+            <form id=\"wprs-data-filter\" method=\"get\">
                 <?php \$this->table->search_box( '搜索', 'search' ); ?>
 
                 <input type=\"hidden\" name=\"page\" value=\"<?php echo \$_REQUEST[ 'page' ] ?>\" />
@@ -495,11 +526,12 @@ class {$this->model}ListPage {
 
 }
 ";
-	}
+    }
 
 
-	private function get_keyword_model_content() {
-		return "<?php
+    private function get_model_content()
+    {
+        return "<?php
 namespace {$this->namespace}\Models;
 
 use Wenprise\Eloquent\Model;
@@ -508,7 +540,7 @@ class {$this->model}Model extends Model {
     /**
      * @var string
      */
-    protected \$table = 'km_keywords';
+    protected \$table = '$this->slug_plural';
 
     /**
      * @var string
@@ -529,19 +561,21 @@ class {$this->model}Model extends Model {
      * @var array
      */
     protected \$fillable = [
-        'keywords',
-        'topic_id',
-        'article_link',
+        'name',
+        'user_id',
         'status',
     ];
 }
 ";
-	}
+    }
 
 
-	private function get_keywords_api_content() {
-		return "<?php
+    private function get_api_content()
+    {
+        return "<?php
 namespace {$this->namespace}\Api;
+
+use {$this->namespace}\Helpers;
 
 class {$this->model}Api extends \WP_REST_Controller
 {
@@ -554,8 +588,8 @@ class {$this->model}Api extends \WP_REST_Controller
     public function __construct()
     {
         \$this->version   = '1';
-        \$this->namespace = 'wp-keywords-manager/v' . \$this->version;
-        \$this->base      = 'keywords';
+        \$this->namespace = '$this->plugin_name' . '/v' . \$this->version;
+        \$this->base      = '$this->slug_plural';
     }
 
     /**
@@ -629,33 +663,9 @@ class {$this->model}Api extends \WP_REST_Controller
                 'type'    => 'string',
                 'default' => '',
             ],
-            'tel'           => [
-                'type'    => 'string',
-                'default' => '',
-            ],
-            'country'       => [
-                'type'    => 'string',
-                'default' => '',
-            ],
-            'province'      => [
-                'type'    => 'string',
-                'default' => '',
-            ],
-            'city'          => [
-                'type'    => 'string',
-                'default' => '',
-            ],
-            'area'        => [
-                'type'    => 'string',
-                'default' => '',
-            ],
-            'postalCode'    => [
-                'type'    => 'string',
-                'default' => '',
-            ],
-            'addressDetail' => [
-                'type'    => 'string',
-                'default' => '',
+            'user_id'           => [
+                'type'    => 'int',
+                'default' => 0,
             ],
             'isDefault'     => [
                 'type'    => 'boolean',
@@ -794,9 +804,7 @@ class {$this->model}Api extends \WP_REST_Controller
     }
 }
 ";
-	}
-
-
+    }
 }
 
-WP_CLI::add_command( 'mvc', 'WP_Mvc_Generator_Command' );
+WP_CLI::add_command('mvc', 'WP_Mvc_Generator_Command');

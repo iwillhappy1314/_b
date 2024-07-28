@@ -20,6 +20,20 @@ Plugin description
 
 == Frequently Asked Questions ==
 
+生成模型方法
+
+wp mvc generate --model=Fire --slug=firework,fireworks
+
+- model: 模型的名称，
+- slug: 数据表的名称、url 的名称
+	- slug_singular: 数据表的名称
+	- slug_plural: 插件的 ID 的名改
+
+自动获取的名称
+
+- namespace: composer 中设置的namespace
+- plugin name: 多语言 domain 的名称、Rest API 中Base Url 的名称
+- base_dir: 命令行所在的目录，插件生成的文件按命名空间放在这个目录
 
 == Screenshots ==
 
