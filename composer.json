@@ -1,5 +1,6 @@
 {
   "name": "wenprise/bb",
+  "version": "1.0.0",
   "description": "Plugin developed by wenprise",
   "require": {
     "php": ">=7.4",
