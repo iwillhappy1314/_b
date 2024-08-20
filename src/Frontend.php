@@ -8,7 +8,7 @@ class Frontend
     public function __construct()
     {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
-        // add_action('admin_enqueue_scripts', [$this, 'admin_enqueue_scripts']);
+        add_action('admin_enqueue_scripts', [$this, 'admin_enqueue_scripts']);
     }
 
 
@@ -31,18 +31,14 @@ class Frontend
     {
         global $pagenow;
 
-        wp_enqueue_style('_b-admin', Helpers::get_assets_url('/dist/admin.css'));
-        wp_enqueue_script('_b-admin', Helpers::get_assets_url('/dist/admin.js'), ['jquery'], SPACENAME_VERSION, true);
+        // wp_enqueue_style('_b-admin', Helpers::get_assets_url('/dist/admin.css'));
+        wp_enqueue_style('wp-tiktok-affiliate', Helpers::get_assets_url('/dist/index.css'));
+        wp_enqueue_script('wp-tiktok-affiliate-alpine', Helpers::get_assets_url('/dist/alpine.js'), [], SPACENAME_VERSION, true);
+        // wp_enqueue_script('_b-admin', Helpers::get_assets_url('/dist/admin.js'), ['jquery'], SPACENAME_VERSION, true);
 
-        wp_localize_script('_b-admin', 'wenpriseSpaceNameAdminSettings', [
-            'root'  => esc_url_raw(rest_url()),
-            'nonce' => wp_create_nonce('wp_rest'),
-        ]);
-
-        // 判断是否为可变商品
-        if ($pagenow === 'post.php' && get_post_type($_GET[ 'post' ]) === 'product') {
-            wp_enqueue_style('_b-admin', Helpers::get_assets_url('admin.css'), [], SPACENAME_VERSION, 'screen');
-            wp_enqueue_script('_b-admin', Helpers::get_assets_url('scripts.js'), [], SPACENAME_VERSION, true);
-        }
+        // wp_localize_script('_b-admin', 'wenpriseSpaceNameAdminSettings', [
+        //     'root'  => esc_url_raw(rest_url()),
+        //     'nonce' => wp_create_nonce('wp_rest'),
+        // ]);
     }
 }
