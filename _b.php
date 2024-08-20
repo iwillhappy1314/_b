@@ -49,5 +49,9 @@ add_action('plugins_loaded', function ()
 {
     load_plugin_textdomain('_b-', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
+    if(!session_id()){
+        session_start();
+    }
+
     new \WenpriseSpaceName\Init();
 });
