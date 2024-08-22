@@ -89,13 +89,21 @@ class WP_Mvc_Generator_Command
             $full_path = $this->base_dir . '/src/' . $filepath;
             $dir       = dirname($full_path);
 
-            if ( ! is_dir($dir)) {
-                if ( ! mkdir($dir, 0755, true)) {
+            // Check if directory exists, if not, create it
+            if (!is_dir($dir)) {
+                if (!mkdir($dir, 0755, true)) {
                     WP_CLI::error("Failed to create directory: $dir");
                     continue;
                 }
             }
 
+            // Check if file already exists
+            if (file_exists($full_path)) {
+                WP_CLI::warning("File already exists: $full_path");
+                exit; // Skip to the next file
+            }
+
+            // Attempt to create the file
             if (file_put_contents($full_path, $content)) {
                 WP_CLI::success("Created file: $full_path");
             } else {
@@ -387,8 +395,11 @@ class {$this->model} extends Database {
                 `parent_id` bigint(20) unsigned DEFAULT 0,
                 `name` varchar(255) UNIQUE DEFAULT NULL,
                 `status` varchar(255) DEFAULT NULL,
+                `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                `deleted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY (`id`),
-                KEY (`name`)
+                KEY (`user_id`)
             ) {\$this->collate};\",
 
         ];
@@ -807,4 +818,83 @@ class {$this->model}Api extends \WP_REST_Controller
     }
 }
 
+
+/**
+ * Migrates the custom databases by scanning a fixed directory.
+ */
+class Database_Migrate_Command {
+
+    /**
+     * The directory to scan for database classes.
+     *
+     * @var string
+     */
+    private $dir = 'src/Databases';
+
+    /**
+     * Migrates the custom databases.
+     *
+     * ## EXAMPLE
+     *
+     *     wp database migrate
+     *
+     * @when after_wp_load
+     */
+    public function __invoke( $args, $assoc_args ) {
+        $path = plugin_dir_path(__FILE__) . $this->dir;
+
+        if (!is_dir($path)) {
+            WP_CLI::error("Directory not found: $path");
+            return;
+        }
+
+        $databases = $this->scan_directory($path);
+
+        foreach ($databases as $database) {
+            new $database();
+            WP_CLI::success("Migrated database: " . $database);
+        }
+
+        WP_CLI::success("All databases migrated successfully.");
+    }
+
+    /**
+     * Scans the given directory for PHP files and returns class names.
+     *
+     * @param string $dir The directory to scan.
+     * @return array An array of fully qualified class names.
+     */
+    private function scan_directory($dir) {
+        $databases = [];
+        $files = glob($dir . '/*.php');
+
+        foreach ($files as $file) {
+            $content = file_get_contents($file);
+            if (preg_match('/class\s+(\w+)/i', $content, $matches)) {
+                $class_name = $matches[1];
+                // Assuming PSR-4 autoloading
+                $namespace = $this->get_namespace($content);
+                $fully_qualified_class_name = $namespace ? "$namespace\\$class_name" : $class_name;
+                $databases[] = $fully_qualified_class_name;
+            }
+        }
+
+        return $databases;
+    }
+
+    /**
+     * Extracts the namespace from the file content.
+     *
+     * @param string $content The content of the PHP file.
+     * @return string|null The namespace if found, null otherwise.
+     */
+    private function get_namespace($content) {
+        if (preg_match('/namespace\s+(.*?);/i', $content, $matches)) {
+            return $matches[1];
+        }
+        return null;
+    }
+}
+
 WP_CLI::add_command('mvc', 'WP_Mvc_Generator_Command');
+WP_CLI::add_command('mvc migrate', 'Database_Migrate_Command' );
