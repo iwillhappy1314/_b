@@ -392,12 +392,12 @@ class {$this->model} extends Database {
             \"CREATE TABLE `{\$this->wpdb->prefix}{$this->slug_plural}` (
                 `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                 `user_id` bigint(20) unsigned DEFAULT NULL,
-                `parent_id` bigint(20) unsigned DEFAULT 0,
-                `name` varchar(255) UNIQUE DEFAULT NULL,
-                `status` varchar(255) DEFAULT NULL,
+                `name` varchar(255) DEFAULT NULL,
+                `amount` decimal(26,8) DEFAULT NULL,
+                `status` varchar(20) DEFAULT NULL,
                 `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                `deleted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                `deleted_at` timestamp DEFAULT NULL DEFAULT,
                 PRIMARY KEY (`id`),
                 KEY (`user_id`)
             ) {\$this->collate};\",
