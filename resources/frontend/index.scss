@@ -1,3 +1,6 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind screens;
+
+@import "scss/modal";
+@import "scss/alert";

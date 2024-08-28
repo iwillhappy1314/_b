@@ -1,0 +1,24 @@
+.alert {
+    @apply mb-4 bg-white px-3 py-2 text-gray-800 flex items-center justify-between text-sm w-full mt-2;
+    border: 1px solid #c3c4c7;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    @apply border-l-4;
+  
+    button.close {
+      @apply rounded-full border-0 bg-transparent order-2 cursor-pointer text-xl;
+      font-family: cursive;
+    }
+  }
+  
+  .alert-success {
+    border-left-color: #00a32a;
+  }
+  
+  .alert-danger {
+    @apply text-red-700;
+  }
+  
+  .alert-warning {
+    @apply text-orange-700;
+  }
+  
