@@ -226,7 +226,7 @@ class {$this->model}ListTable extends \WP_List_Table {
     }
 
     /**
-     * 設置數據列名稱
+     * 设置数据列数据
      *
      * @param object \$item
      * @param string \$column_name
@@ -235,8 +235,13 @@ class {$this->model}ListTable extends \WP_List_Table {
      */
     public function column_default( \$item, \$column_name ) {
         switch ( \$column_name ) {
+            case 'user_id':
+                \$user_id = \$item[ \$column_name ];
+
+                return '<a target=\"_blank\" href=\"' . admin_url('user-edit.php?user_id=' . \$user_id . '&wp_http_referer=%2Fwp-admin%2Fusers.php') . '\">' . get_userdata(\$user_id)->display_name . \$this->column_title(\$item);
             case 'name':
                 return \$item[ \$column_name ] . \$this->column_title( \$item );
+
             default:
                 return \$item[ \$column_name ];
         }
@@ -283,7 +288,8 @@ class {$this->model}ListTable extends \WP_List_Table {
     public function get_columns() {
         return [
             'cb'           => '<input type=\"checkbox\" />',
-            'name'      => __('名称', 'wenprise-serial-manager'),
+            'user_id'      => __('User ID', 'wenprise-serial-manager'),
+            'name'         => __('名称', 'wenprise-serial-manager'),
             'status'       => __('状态', 'wenprise-serial-manager'),
         ];
     }
