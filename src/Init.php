@@ -40,6 +40,8 @@ class Init
         $this->initMvc();
         $this->setRouter();
         $this->setUpdateChecker();
+
+        new \Wenprise\Forms\Init();
     }
 
 
