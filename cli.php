@@ -239,8 +239,12 @@ class {$this->model}ListTable extends \WP_List_Table {
                 \$user_id = \$item[ \$column_name ];
 
                 return '<a target=\"_blank\" href=\"' . admin_url('user-edit.php?user_id=' . \$user_id . '&wp_http_referer=%2Fwp-admin%2Fusers.php') . '\">' . get_userdata(\$user_id)->display_name . \$this->column_title(\$item);
+
             case 'name':
                 return \$item[ \$column_name ] . \$this->column_title( \$item );
+
+            case 'action':
+                return '<button class=\"button primary\" hx-get=\"/tasks/log/'. \$item['id'] .'\" hx-target=\"body\" hx-swap=\"beforeend\">添加记录</button>';
 
             default:
                 return \$item[ \$column_name ];
@@ -403,7 +407,7 @@ class {$this->model} extends Database {
                 `status` varchar(20) DEFAULT NULL,
                 `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                `deleted_at` timestamp DEFAULT NULL DEFAULT,
+                `deleted_at` timestamp DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 KEY (`user_id`)
             ) {\$this->collate};\",

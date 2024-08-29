@@ -10,7 +10,7 @@ class AccountController
 
     public function index()
     {
-        return 'success';
+        return Helpers::render_view('account.index');
     }
 
 }
