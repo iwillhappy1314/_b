@@ -541,7 +541,7 @@ class {$this->model} extends Database {
                 `status` varchar(20) DEFAULT NULL,
                 `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                `deleted_at` timestamp DEFAULT NULL DEFAULT,
+                `deleted_at` timestamp DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 KEY (`user_id`)
             ) {\$this->collate};\",
