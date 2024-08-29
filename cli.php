@@ -1,5 +1,8 @@
 <?php
 
+use Wenprise\Mvc\Facades\Route;
+use WpTiktokAffiliate\Middleware\AuthMiddleware;
+
 if ( ! defined('WP_CLI')) {
     return;
 }
@@ -83,6 +86,7 @@ class WP_Mvc_Generator_Command
             'ListTables/' . $this->model . 'ListTable.php' => $this->get_list_table_content(),
             'Models/' . $this->model . 'Model.php'         => $this->get_model_content(),
             'Api/' . $this->model . 'Api.php'              => $this->get_api_content(),
+            'Controllers/' . $this->model . 'Controller.php' => $this->get_controller_content(),
         ];
 
         foreach ($files as $filepath => $content) {
@@ -111,6 +115,8 @@ class WP_Mvc_Generator_Command
             }
         }
 
+        $this->add_route();
+
         WP_CLI::success("All files have been generated successfully.");
     }
 
@@ -138,6 +144,134 @@ class WP_Mvc_Generator_Command
 
         return rtrim($namespace, '\\');
     }
+
+    private function add_route()
+    {
+        $routes_file = $this->base_dir . '/src/routes.php';
+        $new_route = "Route::match(['get', 'post'],'{$this->slug_plural}/log/{id}', '{$this->model}Controller@log')->middleware(AuthMiddleware::class);\n";
+
+        if (file_exists($routes_file)) {
+            $content = file_get_contents($routes_file);
+            $content .= "\r\n\r\n" . $new_route;
+            file_put_contents($routes_file, $content);
+            WP_CLI::success("Added new route to routes.php");
+        } else {
+            WP_CLI::warning("routes.php not found. Please add the following route manually:\n" . $new_route);
+        }
+    }
+
+    private function get_controller_content()
+    {
+        return "<?php
+
+namespace {$this->namespace}\Controllers;
+
+use Nette\Forms\Form;
+use Valitron\Validator;
+use Wenprise\Eloquent\Facades\DB;
+use Wenprise\Forms\Renders\DefaultFormRender;
+use Wenprise\Mvc\Facades\Input;
+use {$this->namespace}\Helpers;
+use {$this->namespace}\Models\\{$this->model}Model;
+
+class {$this->model}Controller
+{
+    public function index()
+    {
+        \$per_page = 10;
+        \$paged = Helpers::input_get('paged', 1);
+        \$status = Helpers::input_get('status', '');
+
+        \$page = Input::get('page', 1);
+
+        \${$this->slug_plural} = {$this->model}Model::select('*')
+            ->where('id', '>', 0)
+            ->when(\$status, function (\$query, \$status) {
+                return \$query->where('status', \$status);
+            })
+            ->paginate(\$per_page, ['*'], 'page', \$page);
+
+        if (\$_SERVER['REQUEST_METHOD'] == 'POST') {
+            return Helpers::render_view('{$this->slug_singular}.details-part', compact(['paged', '{$this->slug_plural}', 'status']));
+        } else {
+            return Helpers::render_view('{$this->slug_singular}.details', compact(['paged', '{$this->slug_plural}', 'status']));
+        }
+    }
+
+    public function detail(\$id)
+    {
+        \${$this->slug_singular} = {$this->model}Model::query()->find(\$id);
+
+        return Helpers::render_view('{$this->slug_singular}.detail', compact(['{$this->slug_singular}']));
+    }
+
+    public function add()
+    {
+        if (\$_SERVER['REQUEST_METHOD'] === 'POST') {
+            \$v = new Validator(\$_POST);
+            \$v->rule('required', ['name']);
+
+            if (!\$v->validate()) {
+                wp_send_json_error([
+                    'message' => 'Please correct your input.',
+                    'errors'  => \$v->errors(),
+                ]);
+                exit();
+            }
+
+            \$model = {$this->model}Model::query()->create([
+                'name' => Helpers::input_get('name'),
+                'status' => 'draft',
+            ]);
+
+            if (\$model) {
+                wp_send_json_success([
+                    'message' => 'You have successfully added a new {$this->slug_singular}!',
+                    'url' => '/{$this->slug_plural}/',
+                ]);
+            }
+        } else {
+            return Helpers::render_view('{$this->slug_plural}.add');
+        }
+    }
+
+    public function log(\$id)
+    {
+        \$form = new Form();
+        \$form->setMethod('POST');
+        \$form->setAction('/{$this->slug_plural}/edit/' . \$id);
+        \$form->setRenderer(new DefaultFormRender('vertical'));
+
+        \$form->addGroup();
+
+        \$form->addHidden('id', \$id);
+        \$form->addText('name', 'Name')->setDefaultValue(\${$this->slug_singular}->name);
+        \$form->addSelect('status', 'Status', ['draft' => 'Draft', 'published' => 'Published'])->setDefaultValue(\${$this->slug_singular}->status);
+
+        \$form->addSubmit('submit', 'Update');
+
+        if (\$_SERVER['REQUEST_METHOD'] === 'POST') {
+            \${$this->slug_singular} = {$this->model}Model::query()->find(\$id);
+            \${$this->slug_singular}->name = Input::get('name');
+            \${$this->slug_singular}->status = Input::get('status');
+            \${$this->slug_singular}->save();
+
+            Helpers::flash('success', '{$this->model} updated successfully.', admin_url('admin.php?page={$this->slug_singular}'));
+        }
+
+        return Helpers::render_view('{$this->slug_plural}.log', compact('form', '{$this->slug_singular}'));
+    }
+
+    public function delete(\$id)
+    {
+        {$this->model}Model::query()->where('id', \$id)->delete();
+
+        Helpers::flash('success', '{$this->model} deleted successfully.', admin_url('admin.php?page={$this->slug_singular}'));
+    }
+}
+";
+    }
+
 
 
     private function get_list_table_content()
@@ -407,7 +541,7 @@ class {$this->model} extends Database {
                 `status` varchar(20) DEFAULT NULL,
                 `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                `deleted_at` timestamp DEFAULT NULL,
+                `deleted_at` timestamp DEFAULT NULL DEFAULT,
                 PRIMARY KEY (`id`),
                 KEY (`user_id`)
             ) {\$this->collate};\",
