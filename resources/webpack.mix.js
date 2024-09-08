@@ -30,6 +30,7 @@ mix.sass('frontend/index.scss', 'dist').
     });
 
 mix.js('frontend/alpine.js', 'dist');
+mix.js('frontend/htmx.js', 'dist');
 mix.js('frontend/main.js', 'dist');
 mix.js('admin/admin.js', 'dist').vue();
 

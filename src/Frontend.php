@@ -32,9 +32,10 @@ class Frontend
         global $pagenow;
 
         // wp_enqueue_style('_b-admin', Helpers::get_assets_url('/dist/admin.css'));
-        wp_enqueue_style('wp-tiktok-affiliate', Helpers::get_assets_url('/dist/index.css'));
-        wp_enqueue_script('wp-tiktok-affiliate-alpine', Helpers::get_assets_url('/dist/alpine.js'), [], SPACENAME_VERSION, true);
-        // wp_enqueue_script('_b-admin', Helpers::get_assets_url('/dist/admin.js'), ['jquery'], SPACENAME_VERSION, true);
+        wp_enqueue_style('-b-affiliate', Helpers::get_assets_url('/dist/index.css'));
+        wp_enqueue_script('-b-htmx', Helpers::get_assets_url('/dist/htmx.js'), [], SPACENAME_VERSION, true);
+        wp_enqueue_script('-b-alpine', Helpers::get_assets_url('/dist/alpine.js'), [], SPACENAME_VERSION, true);
+        wp_enqueue_script('_b-admin', Helpers::get_assets_url('/dist/admin.js'), ['jquery'], SPACENAME_VERSION, true);
 
         // wp_localize_script('_b-admin', 'wenpriseSpaceNameAdminSettings', [
         //     'root'  => esc_url_raw(rest_url()),

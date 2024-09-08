@@ -1,16 +1,6 @@
 import MicroModal from 'micromodal';
-import 'htmx.org';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import '@sweetalert2/theme-dark/dark.css';
-import _hyperscript from 'hyperscript.org';
-
-
-if($('#region').length > 0){
-  require('script-loader!./ph-address-selector');
-}
-
-window.htmx = require('htmx.org');
-_hyperscript.browserInit();
 
 document.body.addEventListener('htmx:confirm', function(evt) {
   if (evt.target.matches('[confirm-with-sweet-alert=\'true\']')) {
