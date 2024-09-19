@@ -2,7 +2,7 @@
 
 namespace WenpriseSpaceName\Api;
 
-class AddressController extends \WP_REST_Controller
+class AddressApiController extends \WP_REST_Controller
 {
     var $version = 1;
     var $namespace = '';

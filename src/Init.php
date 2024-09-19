@@ -10,7 +10,7 @@ use WenpriseSpaceName\Providers\RoutingService;
 use Wenprise\Dispatcher\Router;
 use Wenprise\Mvc\App;
 use WenpriseSpaceName\Metaboxes\PostMetabox;
-use WenpriseSpaceName\Controllers\AddressApiController;
+use WenpriseSpaceName\Api\AddressApiController;
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 
