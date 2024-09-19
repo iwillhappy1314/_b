@@ -38,11 +38,17 @@ class Init
         add_action('rest_api_init', [new AddressApiController, 'register_routes']);
 
         $this->initMvc();
+        $this->initForm();
         $this->setRouter();
         $this->setUpdateChecker();
 
         new \Wenprise\Forms\Init();
     }
+
+
+    public function initForm() {
+		new \Wenprise\Forms\Init();
+	}
 
 
     public function initMvc(){
