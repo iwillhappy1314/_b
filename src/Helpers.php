@@ -202,4 +202,25 @@ class Helpers extends \Wenprise\Mvc\Helpers
         <?php
     }
 
+
+    public static function add_ajax_listener($action, $callback, $logged = 'both')
+    {
+        // Front-end ajax for non-logged users
+        // Set $logged to false
+        if ($logged === false || $logged === 'no') {
+            add_action('wp_ajax_nopriv_' . $action, $callback);
+        }
+
+        // Front-end and back-end ajax for logged users
+        if ($logged === true || $logged === 'yes') {
+            add_action('wp_ajax_' . $action, $callback);
+        }
+
+        // Front-end and back-end for both logged in or out users
+        if ($logged === 'both') {
+            add_action('wp_ajax_' . $action, $callback);
+            add_action('wp_ajax_nopriv_' . $action, $callback);
+        }
+    }
+
 }
