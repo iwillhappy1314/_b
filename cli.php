@@ -712,14 +712,6 @@ class {$this->model}Model extends Model {
      */
     protected \$guarded = [ 'id' ];
 
-    /**
-     * @var array
-     */
-    protected \$fillable = [
-        'name',
-        'user_id',
-        'status',
-    ];
 }
 ";
     }
