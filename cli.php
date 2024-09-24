@@ -318,7 +318,7 @@ class {$this->model}ListTable extends \WP_List_Table {
             \$model->where( 'name', 'LIKE', Helpers::input_get( 's' ) );
         }
 
-        \$this->datasets = \$model->get()->toArray();
+        \$this->model = \$model;
     }
 
     protected function get_views(): array {
@@ -477,7 +477,23 @@ class {$this->model}ListTable extends \WP_List_Table {
     public function prepare_items() {
 
         // 每页显示数量
-        \$per_page = 20;
+        \$per_page =  $this->get_items_per_page('list_' . $this->_args[ 'singular' ] . '_per_page', 20);
+
+        // 当前页数
+        \$current_page = \$this->get_pagenum();
+
+        // 总数
+        \$total_items = count(\$this->datasets);
+
+        // 分页后的数据
+        \$this->datasets = \$this->model
+            ->limit(\$per_page)
+            ->offset((\$current_page - 1) * \$per_page)
+            ->get()
+            ->toArray();
+
+        // 设置分页后的数据
+        \$this->items = \$this->datasets;
 
         // 必须设置
         \$columns  = \$this->get_columns();
@@ -489,21 +505,6 @@ class {$this->model}ListTable extends \WP_List_Table {
 
         // 批量操作
         \$this->process_bulk_action();
-
-        // 列表数据
-        \$data = \$this->datasets;
-
-        // 当前页数
-        \$current_page = \$this->get_pagenum();
-
-        // 总数
-        \$total_items = count(\$data);
-
-        // 分页后的数据
-        \$data = array_slice(\$data, ((\$current_page - 1) * \$per_page), \$per_page);
-
-        // 设置分页后的数据
-        \$this->items = \$data;
 
         // 设置分页
         \$this->set_pagination_args([
