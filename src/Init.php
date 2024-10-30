@@ -41,8 +41,6 @@ class Init
         $this->initForm();
         $this->setRouter();
         $this->setUpdateChecker();
-
-        new \Wenprise\Forms\Init();
     }
 
 
