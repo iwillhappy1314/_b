@@ -36,8 +36,9 @@
     "webpack-livereload-plugin": "1"
   },
   "scripts": {
+    "clean": "rm -f \"dist/**/*.*.{css,js}\"",
     "build": "mix build",
-    "prod": "mix build --production",
+    "prod": "npm run clean && mix build && mix build --production",
     "dev": "mix watch"
   },
   "dependencies": {
