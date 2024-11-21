@@ -3,8 +3,8 @@ dir_path=$(pwd)
 dir_name=$(basename "$dir_path")
 zip_name=$dir_name.zip
 
-if [ -f "$zip_name" ]; then
-    rm "$zip_name"
+if [ -f "../$zip_name" ]; then
+    rm "../$zip_name"
 fi
 
 if [ "$1" = "production" ]; then
