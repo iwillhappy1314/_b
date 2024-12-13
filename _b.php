@@ -45,10 +45,15 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
     require_once __DIR__ . '/cli.php';
 }
 
-add_action('plugins_loaded', function ()
+
+add_action('init', function ()
 {
     load_plugin_textdomain('_b-', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+});
 
+
+add_action('plugins_loaded', function ()
+{
     if(!session_id()){
         session_start();
     }
