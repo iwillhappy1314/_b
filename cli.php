@@ -477,13 +477,13 @@ class {$this->model}ListTable extends \WP_List_Table {
     public function prepare_items() {
 
         // 每页显示数量
-        \$per_page =  $this->get_items_per_page('list_' . $this->_args[ 'singular' ] . '_per_page', 20);
+        \$per_page =  $this->get_items_per_page($this->_args[ 'singular' ] . '_per_page', 20);
 
         // 当前页数
         \$current_page = \$this->get_pagenum();
 
         // 总数
-        \$total_items = count(\$this->datasets);
+        \$total_items = \$this->->model->count();
 
         // 分页后的数据
         \$this->datasets = \$this->model
