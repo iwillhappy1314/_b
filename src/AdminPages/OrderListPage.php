@@ -17,7 +17,7 @@ class OrderListPage
 {
     public Form $form;
 
-    public OrderListTable $table;
+    use IndexPageTrait;
 
     public function __construct()
     {
@@ -26,6 +26,8 @@ class OrderListPage
         if (Helpers::input_get('page') === 'orders') {
             add_action('admin_init', [$this, 'set_form']);
         }
+
+        $this->table_class = OrderListTable::class;
 
         add_filter('set-screen-option', [$this, 'set_table_options'], 10, 3);
     }
@@ -46,42 +48,6 @@ class OrderListPage
         add_action("load-$hook", [$this, 'set_display_options']);
     }
 
-
-    /**
-     * 添加显示选项分页设置
-     *
-     * @return void
-     */
-    function set_display_options()
-    {
-        $option = 'per_page';
-
-        $args = [
-            'label'   => '每页显示的项目数',
-            'default' => get_user_meta(get_current_user_id(), 'trademarks_per_page', true) ? get_user_meta(get_current_user_id(), 'trademarks_per_page', true) : 10,
-            'option'  => 'trademarks_per_page',
-        ];
-
-        add_screen_option($option, $args);
-
-        // 必须在这里实例化 table 才能有显示选项里面的 columns
-        $this->table = new TrademarkListTable();
-        $this->table->prepare_items();
-    }
-
-    /**
-     * 保存 trademarks_per_page 的值
-     *
-     * @param $status
-     * @param $option
-     * @param $value
-     *
-     * @return mixed
-     */
-    function set_table_options($status, $option, $value)
-    {
-        return $value;
-    }
 
     public function set_form(): void
     {

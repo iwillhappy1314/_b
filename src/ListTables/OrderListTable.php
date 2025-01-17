@@ -7,21 +7,11 @@ use WenpriseSpaceName\Models\OrderModel;
 use Wenprise\Forms\Form;
 use Wenprise\Forms\Renders\DefaultFormRender;
 
-if ( ! class_exists('WP_List_Table')) {
-    require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
-}
 
 class OrderListTable extends \WP_List_Table
 {
 
-    /**
-     * 列表數據
-     *
-     * @var array
-     */
-    public $datasets = [];
-    public $model = null;
-
+    use ListTableTrait;
 
     /**
      * Serial_List_Table constructor.
@@ -239,55 +229,5 @@ class OrderListTable extends \WP_List_Table
             Helpers::flash('success', '成功删除' . count($ids) . '条数据', add_query_arg(['trashed' => count($ids), 'ids' => join('_', $ids), 'locked' => 1], $send_back));
         }
     }
-
-    /**
-     * 准备数据
-     */
-    public function prepare_items()
-    {
-
-        // 每页显示数量
-        $per_page = 20;
-
-        // 必须设置
-        $columns  = $this->get_columns();
-        $hidden   = get_hidden_columns($this->screen);
-        $sortable = $this->get_sortable_columns();
-
-
-        // 列标题
-        $this->_column_headers = [$columns, $hidden, $sortable];
-
-
-        // 批量操作
-        $this->process_bulk_action();
-
-
-        // 列表数据
-        $data = $this->datasets;
-
-        // 当前页数
-        $current_page = $this->get_pagenum();
-
-        // 总数
-        $total_items = count($data);
-
-
-        // 分页后的数据
-        $data = array_slice($data, (($current_page - 1) * $per_page), $per_page);
-
-
-        // 设置分页后的数据
-        $this->items = $data;
-
-
-        // 设置分页
-        $this->set_pagination_args([
-            'total_items' => $total_items,
-            'per_page'    => $per_page,
-            'total_pages' => ceil($total_items / $per_page),
-        ]);
-    }
-
 
 }
