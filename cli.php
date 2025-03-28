@@ -395,8 +395,8 @@ class {$this->model}ListTable extends \WP_List_Table {
     public function column_title( \$item ) {
         // Build row actions
         \$actions = [
-            'edit'   => sprintf('<a href=\"?page=%s&action=%s&%s=%s\">' . __('编辑', 'trademark-monitor') . '</a>', 'add-service-order', 'edit', \$this->_args['singular'], \$item['id']),
-            'delete' => sprintf('<a onclick=\"return confirm(\'确定要删除吗？\')\" href=\"?page=%s&action=%s&%s=%s\">' . __('删除', 'trademark-monitor') . '</a>', \$_REQUEST['page'], 'delete', \$this->_args['singular'], \$item['id']),
+            'edit'   => sprintf('<a href=\"?page=%s&action=%s&%s=%s\">' . __('编辑', 'wprs') . '</a>', 'add-service-order', 'edit', \$this->_args['singular'], \$item['id']),
+            'delete' => sprintf('<a onclick=\"return confirm(\'确定要删除吗？\')\" href=\"?page=%s&action=%s&%s=%s\">' . __('删除', 'wprs') . '</a>', \$_REQUEST['page'], 'delete', \$this->_args['singular'], \$item['id']),
         ];
 
         // Return the title contents
@@ -426,9 +426,9 @@ class {$this->model}ListTable extends \WP_List_Table {
     public function get_columns() {
         return [
             'cb'           => '<input type=\"checkbox\" />',
-            'user_id'      => __('User ID', 'wenprise-serial-manager'),
-            'name'         => __('名称', 'wenprise-serial-manager'),
-            'status'       => __('状态', 'wenprise-serial-manager'),
+            'user_id'      => __('User ID', 'wprs'),
+            'name'         => __('名称', 'wprs'),
+            'status'       => __('状态', 'wprs'),
         ];
     }
 
@@ -604,7 +604,7 @@ class {$this->model}ListPage {
 
         \$args = [
             'label'   => '每页显示的项目数',
-            'default' => get_user_meta( get_current_user_id(), 'trademarks_per_page', true ) ? get_user_meta( get_current_user_id(), 'trademarks_per_page', true ) : 10,
+            'default' => get_user_meta( get_current_user_id(), \$this->slug_singular . '_per_page', true ) ? get_user_meta( get_current_user_id(), \$this->slug_singular . '_per_page', true ) : 10,
             'option'  => 'wprs_per_page',
         ];
 
@@ -616,7 +616,7 @@ class {$this->model}ListPage {
     }
 
     /**
-     * 保存 trademarks_per_page 的值
+     * 保存 _per_page 的值
      *
      * @param \$status
      * @param \$option
@@ -656,7 +656,7 @@ class {$this->model}ListPage {
         ?>
 
         <div class=\"wrap\">
-            <h1 class=\"wp-heading-inline\"><?= __( '全部图书', 'wenprise-serial-manager' ) ?></h1>
+            <h1 class=\"wp-heading-inline\"><?= __( '全部图书', 'wprs' ) ?></h1>
 
             <?php Helpers::render_modal( 'createTicket', '新增图书', \$this->form ); ?>
 
