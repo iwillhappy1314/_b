@@ -1,8 +1,5 @@
 <?php
 
-use Wenprise\Mvc\Facades\Route;
-use WpTiktokAffiliate\Middleware\AuthMiddleware;
-
 if ( ! defined('WP_CLI')) {
     return;
 }
@@ -283,10 +280,6 @@ use Wenprise\Forms\Form;
 use Wenprise\Forms\Renders\DefaultFormRender;
 use {$this->namespace}\Helpers;
 use {$this->namespace}\Models\\{$this->model}Model;
-
-if ( ! class_exists( 'WP_List_Table' ) ) {
-    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-}
 
 class {$this->model}ListTable extends \WP_List_Table {
 

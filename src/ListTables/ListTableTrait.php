@@ -77,9 +77,10 @@ trait ListTableTrait
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return $this
      */
-    protected function setModel($model)
+    protected function set_model($model)
     {
         $this->model = $model;
+
         return $this;
     }
 
@@ -90,10 +91,11 @@ trait ListTableTrait
      * @param string $order
      * @return $this
      */
-    protected function setDefaultOrder($orderby, $order = 'DESC')
+    protected function set_default_order($orderby, $order = 'DESC')
     {
         $this->default_orderby = $orderby;
         $this->default_order = strtoupper($order);
+
         return $this;
     }
 
@@ -103,9 +105,10 @@ trait ListTableTrait
      * @param int $per_page
      * @return $this
      */
-    protected function setPerPage($per_page)
+    protected function set_per_page($per_page)
     {
         $this->per_page = (int)$per_page;
+
         return $this;
     }
 }
