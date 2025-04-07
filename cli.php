@@ -476,7 +476,7 @@ class {$this->model}ListTable extends \WP_List_Table {
         \$current_page = \$this->get_pagenum();
 
         // 总数
-        \$total_items = \$this->->model->count();
+        \$total_items = \$this->model->count();
 
         // 分页后的数据
         \$this->datasets = \$this->model
