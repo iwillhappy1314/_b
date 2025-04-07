@@ -470,7 +470,7 @@ class {$this->model}ListTable extends \WP_List_Table {
     public function prepare_items() {
 
         // 每页显示数量
-        \$per_page =  $this->get_items_per_page($this->_args[ 'singular' ] . '_per_page', 20);
+        \$per_page =  \$this->get_items_per_page(\$this->_args[ 'singular' ] . '_per_page', 20);
 
         // 当前页数
         \$current_page = \$this->get_pagenum();
