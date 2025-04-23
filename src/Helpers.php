@@ -223,4 +223,27 @@ class Helpers extends \Wenprise\Mvc\Helpers
         }
     }
 
+
+    public static function log( $message, $label = 'DEBUG', $log_file = null ) {
+        // 指定默认日志路径
+        if ( ! $log_file ) {
+            $upload_dir = wp_upload_dir();
+            $log_file = trailingslashit( $upload_dir['basedir'] ) . '_b-debug.log';
+        }
+
+        // 构造时间戳和标签
+        $timestamp = date( 'Y-m-d H:i:s' );
+        $output = "[$timestamp] [$label] ";
+
+        // 支持数组或对象格式化
+        if ( is_array( $message ) || is_object( $message ) ) {
+            $output .= print_r( $message, true );
+        } else {
+            $output .= $message;
+        }
+
+        // 写入文件
+        file_put_contents( $log_file, $output . PHP_EOL, FILE_APPEND );
+    }
+
 }
