@@ -58,5 +58,5 @@ add_action('plugins_loaded', function ()
         session_start();
     }
 
-    new \WenpriseSpaceName\Init();
+    new \WenpriseSpaceName\Init::get_instance();
 });
