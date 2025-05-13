@@ -288,7 +288,6 @@ class {$this->model}ListTable extends \WP_List_Table {
      *
      * @var array
      */
-    public \$datasets = [];
     public \$model = null;
 
     /**
@@ -479,14 +478,11 @@ class {$this->model}ListTable extends \WP_List_Table {
         \$total_items = \$this->model->count();
 
         // 分页后的数据
-        \$this->datasets = \$this->model
+        \$this->items  = \$this->model
             ->limit(\$per_page)
             ->offset((\$current_page - 1) * \$per_page)
             ->get()
             ->toArray();
-
-        // 设置分页后的数据
-        \$this->items = \$this->datasets;
 
         // 必须设置
         \$columns  = \$this->get_columns();

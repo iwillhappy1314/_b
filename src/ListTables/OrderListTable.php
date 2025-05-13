@@ -33,8 +33,6 @@ class OrderListTable extends \WP_List_Table
         if (Helpers::input_get('s')) {
             $model->where('application_no', '=', Helpers::input_get('s'));
         }
-
-        $this->datasets = $model->get()->toArray();
     }
 
 
