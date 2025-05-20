@@ -48,7 +48,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 add_action('init', function ()
 {
-    load_plugin_textdomain('_b-', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+    load_plugin_textdomain('_b-', false, dirname(plugin_casename(__FILE__)) . '/languages/');
 });
 
 
@@ -58,5 +58,5 @@ add_action('plugins_loaded', function ()
         session_start();
     }
 
-    new \WenpriseSpaceName\Init::get_instance();
+    \WenpriseSpaceName\Init::get_instance();
 });
