@@ -37,7 +37,7 @@ function _b_deactivation()
 
 function _b_uninstallation_action_action()
 {
-    new WenpriseSpaceName\Actions\DeactivationAction();
+    new WenpriseSpaceName\Actions\UninstallationAction();
 }
 
 
