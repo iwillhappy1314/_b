@@ -19,23 +19,23 @@ define('SPACENAME_URL', plugin_dir_url(__FILE__));
 
 require_once(SPACENAME_PATH . 'vendor/autoload.php');
 
-register_activation_hook(SPACENAME_MAIN_FILE, '_b_activation');
-register_deactivation_hook(SPACENAME_MAIN_FILE, '_b_deactivation');
-register_uninstall_hook(SPACENAME_MAIN_FILE, '_b_uninstallation_action_action');
+register_activation_hook(SPACENAME_MAIN_FILE, '_b_activation_action');
+register_deactivation_hook(SPACENAME_MAIN_FILE, '_b_deactivation_action');
+register_uninstall_hook(SPACENAME_MAIN_FILE, '_b_uninstallation_action');
 
-function _b_activation()
+function _b_activation_action()
 {
     new WenpriseSpaceName\Actions\ActivationAction();
 }
 
 
-function _b_deactivation()
+function _b_deactivation_action()
 {
     new WenpriseSpaceName\Actions\DeactivationAction();
 }
 
 
-function _b_uninstallation_action_action()
+function _b_uninstallation_action()
 {
     new WenpriseSpaceName\Actions\UninstallationAction();
 }
