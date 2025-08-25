@@ -246,7 +246,7 @@ class Helpers extends \Wenprise\Mvc\Helpers
 
 
     public static function get_admin_action_url( $action ) {
-		return admin_url( 'admin-post.php&action=' . $action );
+		return admin_url( 'admin-post.php?action=' . $action );
 	}
 
 
