@@ -224,6 +224,32 @@ class Helpers extends \Wenprise\Mvc\Helpers
     }
 
 
+    public static function add_admin_action_listener($action, $callback, $logged = 'both')
+    {
+        // Front-end ajax for non-logged users
+        // Set $logged to false
+        if ($logged === false || $logged === 'no') {
+            add_action('admin_post_nopriv_' . $action, $callback);
+        }
+
+        // Front-end and back-end ajax for logged users
+        if ($logged === true || $logged === 'yes') {
+            add_action('admin_post_' . $action, $callback);
+        }
+
+        // Front-end and back-end for both logged in or out users
+        if ($logged === 'both') {
+            add_action('admin_post_' . $action, $callback);
+            add_action('admin_post_nopriv_' . $action, $callback);
+        }
+    }
+
+
+    public static function get_admin_action_url( $action ) {
+		return admin_url( 'admin-post.php&action=' . $action );
+	}
+
+
     public static function log( $message, $label = 'DEBUG', $log_file = null ) {
         // 指定默认日志路径
         if ( ! $log_file ) {
