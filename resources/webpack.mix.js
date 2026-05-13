@@ -32,7 +32,7 @@ mix.sass('frontend/index.scss', 'dist').
 mix.js('frontend/alpine.js', 'dist');
 mix.js('frontend/htmx.js', 'dist');
 mix.js('frontend/main.js', 'dist');
-mix.js('admin/admin.js', 'dist').vue();
+//mix.js('admin/admin.js', 'dist').vue();
 
 //mix.copyWatched('assets/images', 'dist/images').
 //    copyWatched('assets/fonts', 'dist/fonts');
@@ -44,8 +44,16 @@ if (mix.inProduction()) {
     mix.webpackConfig({devtool: 'eval-cheap-source-map'});
 }
 
+mix.override((config) => {
+    config.plugins = config.plugins.filter(plugin => {
+        const options = plugin && plugin.options ? plugin.options : {};
+        const isOffending = options.reporters || options.reporter || (options.name === 'Mix');
+        return !isOffending;
+    });
+});
+
 mix.browserSync({
-    proxy         : '_b.test',
+    proxy         : 'upends-member-center.test',
     files         : [
         {
             match  : [
