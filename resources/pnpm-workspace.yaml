@@ -4,3 +4,7 @@ blockExoticSubdeps: false
 allowBuilds:
   '@parcel/watcher': true
   'core-js': true
+  esbuild: set this to true or false
+
+overrides:
+  webpack: 5.75.0
