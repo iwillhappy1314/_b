@@ -1,7 +1,13 @@
+/** @type {import('tailwindcss').Config} */
+
+// 1. 使用 CommonJS 语法正确引入 fluid-tailwind 核心组件
+const { default: fluid, extract, screens, fontSize } = require('fluid-tailwind');
+
 module.exports = {
     content   : [
         '../src/**/*.php',
         '../templates/**/*.php',
+        extract,
     ],
     //darkMode: false, // or 'media' or 'class'
     theme   : {
@@ -36,12 +42,14 @@ module.exports = {
           '-sm': {'max': '639px'},
           // => @media (max-width: 639px) { ... }
         },
+        fontSize,
         extend: {},
     },
     variants: {
         extend: {},
     },
     plugins : [
+        fluid,
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio')
     ],
