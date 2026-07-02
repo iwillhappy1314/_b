@@ -55,7 +55,8 @@ class CrmPage
      */
     public function enqueue_scripts()
     {
-        wp_enqueue_script('_b-admin', Helpers::get_assets_url('/dist/scripts/admin.js'), ['jquery'], '1.0.0', true);
+        wp_enqueue_style('_b-admin', Helpers::get_assets_url('/dist/admin.css'), [], SPACENAME_VERSION, 'screen');
+        wp_enqueue_script('_b-admin', Helpers::get_assets_url('/dist/admin.js'), ['jquery'], SPACENAME_VERSION, true);
 
         wp_localize_script('_b-admin', 'wenpriseSpaceNameAdminSettings', [
             'root'  => esc_url_raw(rest_url()),

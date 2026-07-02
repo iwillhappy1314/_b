@@ -51,8 +51,8 @@ class AdminIndexPage
      */
     public function enqueue_scripts()
     {
-        wp_enqueue_style('_b-admin', Helpers::get_assets_url('admin.css'), [], SPACENAME_VERSION, 'screen');
-        wp_enqueue_script('_b-admin', Helpers::get_assets_url('admin.js'), [], SPACENAME_VERSION, true);
+        wp_enqueue_style('_b-admin', Helpers::get_assets_url('/dist/admin.css'), [], SPACENAME_VERSION, 'screen');
+        wp_enqueue_script('_b-admin', Helpers::get_assets_url('/dist/admin.js'), [], SPACENAME_VERSION, true);
 
         wp_localize_script('_b-admin', 'wenpriseSpaceNameAdminSettings', [
             'root'  => esc_url_raw(rest_url()),

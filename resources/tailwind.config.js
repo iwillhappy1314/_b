@@ -4,13 +4,14 @@
 const { default: fluid, extract, screens, fontSize } = require('fluid-tailwind');
 
 module.exports = {
-    content   : [
+    content   : {
         files: [
-          '../src/**/*.php',
-          '../templates/**/*.php',
+            '../src/**/*.php',
+            '../templates/**/*.php',
+            './admin/src/**/*.{ts,tsx}',
         ],
         extract,
-    ],
+    },
     //darkMode: false, // or 'media' or 'class'
     theme   : {
         screens  : {

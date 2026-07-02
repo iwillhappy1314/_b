@@ -105,6 +105,21 @@
 - 在 `render()` 里堆大量业务计算
 - 直接承担复杂数据查询与规则处理
 
+### 3.9 `resources/admin`
+
+后台资源推荐使用 React + TypeScript + Radix UI 原语。
+
+推荐职责：
+
+- `main.tsx` 负责挂载后台应用
+- `App.tsx` 负责页面壳层或当前后台页面入口
+- `components/ui` 放可复用的后台基础组件
+- `lib` 放后台运行时设置、工具方法、API 封装
+
+推荐调用链：
+
+`AdminPage -> wp_localize_script -> React Mount -> REST API / Service`
+
 ### 3.9 `templates`
 
 只负责展示。

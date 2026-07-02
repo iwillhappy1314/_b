@@ -1,5 +1,6 @@
 let mix = require('laravel-mix');
 let webpack = require('webpack');
+let path = require('path');
 
 require('laravel-mix-tailwind');
 require('laravel-mix-versionhash');
@@ -11,6 +12,11 @@ mix.setPublicPath('./');
 mix.webpackConfig({
     externals: {
         jquery: 'jQuery',
+    },
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'admin/src'),
+        },
     },
     plugins  : [
         new webpack.ProvidePlugin({
@@ -32,7 +38,22 @@ mix.sass('frontend/index.scss', 'dist').
 mix.js('frontend/alpine.js', 'dist');
 mix.js('frontend/htmx.js', 'dist');
 mix.js('frontend/main.js', 'dist');
-//mix.js('admin/admin.js', 'dist').vue();
+mix.css('admin/src/styles.css', 'dist/admin.css').
+    tailwind().
+    options({
+        outputStyle: 'compressed',
+        postCss: [
+            require('css-mqpacker'),
+        ],
+    });
+mix.ts('admin/src/main.tsx', 'dist/admin.js', {
+    configFile: path.resolve(__dirname, 'admin/tsconfig.json'),
+    compilerOptions: {
+        noEmit: false,
+        allowImportingTsExtensions: false,
+        lib: ['ES2022', 'DOM', 'DOM.Iterable'],
+    },
+}).react();
 
 //mix.copyWatched('assets/images', 'dist/images').
 //    copyWatched('assets/fonts', 'dist/fonts');

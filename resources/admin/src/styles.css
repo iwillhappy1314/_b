@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --b-admin-surface: 255 255 255;
+        --b-admin-surface-soft: 248 250 252;
+        --b-admin-foreground: 15 23 42;
+        --b-admin-muted: 100 116 139;
+        --b-admin-border: 226 232 240;
+        --b-admin-ring: 14 165 233;
+        --b-admin-radius: 1.75rem;
+        --b-admin-shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
+    }
+
+    #_b-admin {
+        color: rgb(var(--b-admin-foreground));
+    }
+}
+
+@layer components {
+    .wp-admin-template {
+        color: rgb(var(--b-admin-foreground));
+    }
+
+    .wp-admin-template__shell {
+        border-radius: var(--b-admin-radius);
+        box-shadow: var(--b-admin-shadow);
+    }
+
+    .wp-admin-template-button {
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    }
+}
