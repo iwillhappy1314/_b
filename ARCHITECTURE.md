@@ -87,7 +87,7 @@
 通常命名为 `*PageService`，负责页面 URL、页面 ID、页面存在性等基础能力。
 
 3. 页面展示组装服务  
-通常命名为 `*PageViewService` 或 `*ViewService`，负责把业务服务结果组装成模板需要的数据结构。
+通常命名为 `*PageDataAssemblerService`，负责把业务服务结果组装成模板需要的数据结构。
 
 ### 3.8 `Shortcodes`
 
@@ -143,7 +143,7 @@
 
 推荐调用链：
 
-`PageService -> PageViewService -> Shortcode -> template`
+`PageService -> PageDataAssemblerService -> Shortcode -> template`
 
 ### 4.2 带提交动作的页面
 
@@ -161,7 +161,7 @@
 - 获取页面 ID
 - 激活时注册页面
 
-#### `PageViewService`
+#### `PageDataAssemblerService`
 
 只负责展示数据组装：
 
@@ -177,7 +177,7 @@
 
 - 登录态判断
 - 访客态 fallback
-- 调用 `PageViewService`
+- 调用 `PageDataAssemblerService`
 - 渲染模板
 
 #### `Integrate`
@@ -250,7 +250,7 @@
 ## 8. 新增页面推荐步骤
 
 1. 新建 `src/Services/*PageService.php`
-2. 新建 `src/Services/*PageViewService.php`
+2. 新建 `src/Services/*PageDataAssemblerService.php`
 3. 新建 `src/Shortcodes/*Shortcode.php`
 4. 新建 `templates/*.php`
 5. 如有表单提交，再新建 `src/Integrate/*Integrate.php`
@@ -261,6 +261,6 @@
 如果以后要继续升级这个模板，建议优先做下面几件事：
 
 1. 让更多模板示例类支持构造函数注入。
-2. 增加一个页面级 `PageService + PageViewService` 示例。
+2. 增加一个页面级 `PageService + PageDataAssemblerService` 示例。
 3. 统一更多默认命名和文档说明。
 4. 保持模板代码和文档同步更新。

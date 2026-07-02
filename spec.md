@@ -35,7 +35,7 @@
 
 优先使用：
 
-`PageService -> PageViewService -> Shortcode -> template`
+`PageService -> PageDataAssemblerService -> Shortcode -> template`
 
 ### 带表单提交的页面
 
