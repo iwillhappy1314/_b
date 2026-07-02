@@ -1,8 +1,6 @@
 {
     "/dist/admin.css": "/dist/admin.css",
     "/dist/admin.js": "/dist/admin.js",
-    "/dist/alpine.js": "/dist/alpine.js",
-    "/dist/htmx.js": "/dist/htmx.js",
     "/dist/index.css": "/dist/index.css",
     "/dist/main.js": "/dist/main.js"
 }

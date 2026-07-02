@@ -35,8 +35,6 @@ mix.sass('frontend/index.scss', 'dist').
         ],
     });
 
-mix.js('frontend/alpine.js', 'dist');
-mix.js('frontend/htmx.js', 'dist');
 mix.js('frontend/main.js', 'dist');
 mix.css('admin/src/styles.css', 'dist/admin.css').
     tailwind().
