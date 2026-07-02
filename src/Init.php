@@ -6,7 +6,9 @@ use WenpriseSpaceName\AdminPages\CrmAddPage;
 use WenpriseSpaceName\AdminPages\CrmPage;
 use WenpriseSpaceName\AdminPages\AddPage;
 use WenpriseSpaceName\AdminPages\AdminIndexPage;
+use WenpriseSpaceName\Integrate\OrderIntegrate;
 use WenpriseSpaceName\Providers\RoutingService;
+use WenpriseSpaceName\Shortcodes\QueryShortcode;
 use Wenprise\Dispatcher\Router;
 use Wenprise\Mvc\App;
 use WenpriseSpaceName\Metaboxes\PostMetabox;
@@ -31,7 +33,7 @@ class Init
     /**
     * 私有反序列化方法，防止反序列化创建对象
     */
-    private function __wakeup() {
+    public function __wakeup() {
     }
 
     /**
@@ -65,7 +67,9 @@ class Init
             Frontend::class,
             PostMetabox::class,
             CrmPage::class,
-            CrmAddPage::class
+            CrmAddPage::class,
+            OrderIntegrate::class,
+            QueryShortcode::class,
         ];
 
         foreach ($classes as $class) {
@@ -123,7 +127,7 @@ class Init
     public function setRouter()
     {
         $routers = [
-            '_b' => ['\WenpriseSpaceName\Controllers\SerialsController', 'index'],
+            '_b' => ['\WenpriseSpaceName\Controllers\AccountController', 'index'],
         ];
 
         Router::routes(apply_filters('_b_routers', $routers));

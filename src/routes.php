@@ -9,9 +9,6 @@
  *
  */
 
-use Wenprise\Mvc\Facades\Input;
 use Wenprise\Mvc\Facades\Route;
-use Wenprise\Mvc\Facades\View;
 
-
-Route::get('account', 'OrderController@index' );
+Route::get('account', 'AccountController@index');
